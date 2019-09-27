@@ -1,0 +1,24 @@
+<div>
+        <app-header></app-header>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>What dataset do you want to tokenize today?</mat-card-title>
+            <mat-card-title>CSV files are welcomed</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+                <div class="form-group">
+                        <label for="file">Choose File</label>
+                        <input type="file"
+                               id="file"
+                               (change)="handleFileInput($event.target.files)">
+                    </div>
+        </mat-card-content>
+        <button (click)="login()" class="login-button" mat-raised-button>Login</button>
+        <span>or</span>
+        <button (click)="skipGuess()" class="guest-button" mat-raised-button>Guest Access</button>
+        <hr>
+        <img class="mat-card-image-2" src="../../assets/img/rtLogo.png" alt="rtLogo">
+        <img class="mat-card-image-2" src="../../assets/img/onesaitLogo.PNG" alt="rtLogo">
+    </mat-card>
+    <router-outlet></router-outlet>
+</div>
