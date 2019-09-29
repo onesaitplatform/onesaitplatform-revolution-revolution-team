@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit {
   }
 
   skipGuess(){
-    
+ 
+    this.router.navigate(['/core']);
   }
 
 }
