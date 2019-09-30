@@ -1,12 +1,9 @@
-.mat-card{margin-top: 10%;
-    margin-left: 33%;
     margin-right: 33%;
-    margin-bottom: 10%}
 .login-cont {
     display: flex;
     flex-direction: column;
   }
-  
+
   .login-cont > * {
     width: 60%;
   }
