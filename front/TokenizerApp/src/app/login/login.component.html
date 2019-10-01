@@ -29,7 +29,9 @@
     </mat-card-content>
     <button (click)="login()" class="login-button" mat-raised-button>Login</button>
     <span>or</span>
-    <button (click)="skipGuess()" class="guest-button" mat-raised-button>Guest Access</button>
+    <button  onClick="parent.location='https://lab.onesaitplatform.com/controlpanel/login'" class="guest-button" mat-raised-button>Sing Up</button>
+    <span>or</span>
+    <button (click)="skipGuess()" class="guest-button" mat-raised-button>Register</button>
     <hr>
     <img class="mat-card-image-2" src="../../assets/img/rtLogo.png" alt="rtLogo">
     <img class="mat-card-image-2" src="../../assets/img/onesaitLogo.PNG" alt="rtLogo">

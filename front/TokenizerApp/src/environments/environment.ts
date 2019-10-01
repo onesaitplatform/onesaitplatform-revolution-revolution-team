@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   token: '',
-  userName: ''
+  userName: '',
+  autorization: 'Basic b25lc2FpdHBsYXRmb3JtOm9uZXNhaXRwbGF0Zm9ybQ=='
 };
 
 /*

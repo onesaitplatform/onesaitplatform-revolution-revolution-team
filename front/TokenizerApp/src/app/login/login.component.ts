@@ -1,7 +1,6 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs-compat/add/operator/map';
 import { LoginService } from '../login.service';
 @Component({
@@ -23,15 +22,23 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    environment.token = null;
     this.submitLogin = true;
     if (this.username && this.psw) {
-      if (this.loginService.getToken() != null) {
-        alert(this.env.token);
+    this.loginService.getToken(this.username, this.psw);
+    // TODO loading gif
+    setTimeout(() => {
+      if (environment.token != null) {
+        environment.userName = this.username;
+        // TODO add welcome mensaje
         this.router.navigate(['/core']);
       } else {
+        // TODO add fail mesaje
         alert('Login isn\'t correct');
       }
-    }
+    }, 6000);
+    // TODO Quit loading gif
+}
   }
   skipGuess() {
     this.router.navigate(['/core']);
