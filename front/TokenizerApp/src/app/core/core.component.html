@@ -1,0 +1,45 @@
+<div>
+        <app-header></app-header>
+    <mat-card>
+            <mat-accordion>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Tokenized File
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          Click to Show file-list
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                     Files here
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                  <hr>
+        <mat-card-header class="blue">
+            <mat-card-title>What dataset do you want to tokenize today?</mat-card-title>
+            <mat-card-title class="b1">CSV files are welcomed</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <h4 class="blue">Choose File</h4>
+                        <form (ngSubmit)="onSubmit()">
+                            <div class="form-group">
+                                <input type="file"  [(ngModel)]="file" name="file"  />
+                            </div>
+                            <div class="form-group">
+                                <button *ngIf="!pressBtn" (click)="uploadFile()" class="btn btn-primary fr">Submit</button>
+                                <mat-progress-bar *ngIf="pressBtn"[color]="blue" mode="indeterminate"></mat-progress-bar>
+                                <button (click)="nextToList()"  *ngIf="pressBtn" class="btn btn-primary m1 fr">Next</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <hr>
+        <app-footer></app-footer>
+    </mat-card>
+</div>
