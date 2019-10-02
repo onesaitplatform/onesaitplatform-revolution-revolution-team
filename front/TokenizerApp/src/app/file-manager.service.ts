@@ -6,11 +6,11 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class FileManagerService {
   env = environment;
+  private file: File;
 
   constructor(protected http: HttpClient) { }
 
   async uploadFile(file: File) {
-
     const httpOptions = {
       headers: new HttpHeaders({
         // tslint:disable-next-line:max-line-length
@@ -26,7 +26,7 @@ export class FileManagerService {
     ).subscribe(
       res => {
         environment.fileToken =  res.toString();
-        console.log('Correct login');
+        console.log('Correct uplad file');
 
       }, err => {
         environment.token = null;
@@ -35,11 +35,61 @@ export class FileManagerService {
     );
   }
 
-  saveFile(file: File, fileKey: String) {
-    debugger;
-
-
+  async getFile(fileToken: String) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        // tslint:disable-next-line:max-line-length
+        'Authorization': 'Bearer ' + environment.token
+      })
+    };
+    await this.http.get(
+      environment.uploadUrl + '/' + fileToken , httpOptions
+    ).subscribe(
+      res => {
+        this.file = new File(res['fileName'], res['data']);
+        console.log('File obtained');
+      }, err => {
+        console.log(err);
+      }
+    );
   }
 
+  async modifyFile(fileToken: String, fileUpadted: File) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + environment.token
+      })
+    };
+    const body = new FormData();
+    body.append('repository', '');
+    body.append('file', fileUpadted);
+    await this.http.put(
+      environment.uploadUrl + '/' + fileToken , body, httpOptions
+    ).subscribe(
+      res => {
+        this.file = new File(res['fileName'], res['data']);
+        console.log('File modified');
+      }, err => {
+        console.log(err);
+      }
+    );
+  }
 
+  async deleteFile(fileToken: String, fileUpadted: File) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + environment.token
+      })
+    };
+    await this.http.delete(
+      environment.uploadUrl + '/' + fileToken , httpOptions
+    ).subscribe(
+      res => {
+        this.file = new File(res['fileName'], res['data']);
+        console.log('File deleted');
+      }, err => {
+        console.log(err);
+      }
+    );
+  }
 }
