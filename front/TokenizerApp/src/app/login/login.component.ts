@@ -30,10 +30,10 @@ export class LoginComponent implements OnInit {
     setTimeout(() => {
       if (environment.token != null) {
         environment.userName = this.username;
-        // TODO add welcome mensaje
+        // TODO add welcome message
         this.router.navigate(['/core']);
       } else {
-        // TODO add fail mesaje
+        // TODO add fail message
         alert('Login isn\'t correct');
       }
     }, 6000);
