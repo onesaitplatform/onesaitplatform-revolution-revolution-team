@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Router } from '@angular/router';
+import {UploadFileService} from '../upload-file.service';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-core',
@@ -10,57 +12,45 @@ import { Router } from '@angular/router';
 
 
 export class CoreComponent implements OnInit {
-  pressBtn:boolean=false;
-  fileData: File = null;
-  image;
-  sessionuser : string = sessionStorage.getItem("userName");
-  constructor(private http: HttpClient,private router:Router) { }
-   
+  file:  File;
+  pressBtn: boolean;
+  constructor(private http: HttpClient, private router: Router, protected uploadService: UploadFileService ) { }
+
   fileProgress(fileInput: any) {
-      this.fileData = <File>fileInput.target.files[0];
+      this.file = <File>fileInput.target.files[0];
   }
 
-  changeListener($event) : void {
-    this.readThis($event.target);
-  }
-  
-  readThis(inputValue: any): void {
-    var file:File = inputValue.files[0];
-    var myReader:FileReader = new FileReader();
-  
-    myReader.onloadend = (e) => {
-      this.image = myReader.result;
-      console.log("image",this.image)
-    }
-    myReader.readAsDataURL(file);
-  }
-   
   onSubmit() {
-    this.pressBtn=true;
+      this.pressBtn = true;
       const formData = new FormData();
-      formData.append('file', this.fileData);
-      this.http.post('url/to/your/api', formData, {
-        reportProgress: true,
-        observe: 'events'   
-      })
-      .subscribe(events => {
-        if(events.type == HttpEventType.UploadProgress) {
-            console.log('Upload progress: ', Math.round(events.loaded / events.total * 100) + '%');
-        } else if(events.type === HttpEventType.Response) {
-            console.log(events);
+      environment.fileToken = null;
+     // this.uploadService.uploadFile(this.file);
+      debugger;
+      this.uploadService.saveFile(this.file);
+      // TODO loading gif
+      setTimeout(() => {
+        if ( environment.fileToken != null) {
+          // TODO add correct upload message
+          alert('correct');
+          this.router.navigate(['/option']);
+        } else {
+          // TODO add fail message
+          alert('Login isn\'t correct');
         }
-      })
+      }, 60000);
+      // TODO Quit loading gif
   }
 
-  nextToList(){
+  nextToList() {
     this.router.navigate(['/option']);
   }
 
   ngOnInit() {
-
-
   }
 
+  uploadFile() {
+
+  }
 }
 
 
