@@ -25,8 +25,7 @@ export class CoreComponent implements OnInit {
       const formData = new FormData();
       environment.fileToken = null;
      // this.uploadService.uploadFile(this.file);
-      debugger;
-      this.uploadService.saveFile(this.file);
+      this.uploadService.saveFile(this.file, environment.fileToken);
       // TODO loading gif
       setTimeout(() => {
         if ( environment.fileToken != null) {

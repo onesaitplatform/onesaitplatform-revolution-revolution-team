@@ -33,6 +33,7 @@
     "https": "^1.0.0",
     "install": "^0.13.0",
     "jquery": "^3.4.1",
+    "jsonfile": "^5.0.0",
     "npm": "^6.11.3",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
@@ -40,6 +41,7 @@
     "rxjs-compat": "^6.0.0",
     "tslib": "^1.9.0",
     "unirest": "^0.6.0",
+    "write-json-file": "^4.2.0",
     "zone.js": "^0.9.1"
   },
   "devDependencies": {
@@ -68,8 +70,6 @@
   },
   "browser": {
     "restler": false,
-    "fs": true,
-    "path": false,
-    "os": false
+    "fs": true
   }
 }
