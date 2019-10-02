@@ -6,6 +6,7 @@ import 'rxjs-compat/add/operator/catch';
   providedIn: 'root'
 })
 export class LoginService {
+
   constructor(protected http: HttpClient) {}
 
   async getToken(username: string, psw: string) {

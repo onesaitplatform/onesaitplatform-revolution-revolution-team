@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class FileManagerService {
   env = environment;
-  private file: File;
+  public file: File;
 
   constructor(protected http: HttpClient) { }
 
@@ -91,5 +92,17 @@ export class FileManagerService {
         console.log(err);
       }
     );
+  }
+
+  async getJSONFile(fileToken: String): Promise<Observable<any>> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        // tslint:disable-next-line:max-line-length
+        'Authorization': 'Bearer ' + environment.token
+      })
+    };
+    return this.http.get(
+      environment.uploadUrl + '/' + fileToken , httpOptions
+    ).map((res: any) => res.json());
   }
 }
