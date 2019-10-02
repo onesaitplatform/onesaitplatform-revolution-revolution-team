@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Router } from '@angular/router';
-import {UploadFileService} from '../upload-file.service';
+import {FileManagerService} from '../file-manager.service';
 import {environment} from '../../environments/environment';
 
 @Component({
@@ -14,7 +14,7 @@ import {environment} from '../../environments/environment';
 export class CoreComponent implements OnInit {
   file:  File;
   pressBtn: boolean;
-  constructor(private http: HttpClient, private router: Router, protected uploadService: UploadFileService ) { }
+  constructor(private http: HttpClient, private router: Router, protected fileManagerService: FileManagerService ) { }
 
   fileProgress(fileInput: any) {
       this.file = <File>fileInput.target.files[0];
@@ -24,8 +24,9 @@ export class CoreComponent implements OnInit {
       this.pressBtn = true;
       const formData = new FormData();
       environment.fileToken = null;
-     // this.uploadService.uploadFile(this.file);
-      this.uploadService.saveFile(this.file, environment.fileToken);
+      
+      this.fileManagerService.uploadFile(this.file);
+      this.fileManagerService.saveFile(this.file, environment.fileToken);
       // TODO loading gif
       setTimeout(() => {
         if ( environment.fileToken != null) {

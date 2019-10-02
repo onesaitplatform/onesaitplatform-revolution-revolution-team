@@ -7,5 +7,14 @@
     "pathRewrite": {
       "^/api": ""
     }
+  },
+  "/controlpanel/*": {
+    "target": "https://lab.onesaitplatform.com/",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/controlpanel": ""
+    }
   }
 }

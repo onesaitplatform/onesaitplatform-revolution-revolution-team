@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class UploadFileService {
+export class FileManagerService {
   env = environment;
 
   constructor(protected http: HttpClient) { }
@@ -37,20 +37,7 @@ export class UploadFileService {
 
   saveFile(file: File, fileKey: String) {
     debugger;
-    // We have on this json de users data
-    const json_data = require('../assets/data/data.json');
-    const writeJsonFile = require('write-json-file');
-    const user = json_data[0];
-    debugger;
-    // change the json data
-    json_data[0] = ' [{"name2" : "testy221.csv", "ke22y" : "ke222y"},{"name" : "testy1.csv", "key" : "key"},{"name" : "testy1.csv", "key" : "key"}]';
-    // create json
-    const json = JSON.stringify(json_data);
-    // write to file
-    (async () => {
-      await writeJsonFile('../assets/data/data.json', json);
-    })();
-    console.log('File read failed:', json_data);
+
 
   }
 
