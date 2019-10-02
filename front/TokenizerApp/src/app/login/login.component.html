@@ -1,8 +1,8 @@
-<mat-card style="width: 100%;">
+<mat-card style="width: 100%;margin-top:10%">
     <mat-card-header>
         <mat-card-title>Tokenify App</mat-card-title>
     </mat-card-header>
-    <img mat-card-image src="../../assets/img/logo.JPG" alt="logo">
+    <img mat-card-image src="./assets/img/logo.JPG" alt="logo">
     <mat-card-content class="login-cont">
         <mat-form-field>
             <input id="username" name="username" [(ngModel)]="username" #name="ngModel" matInput
@@ -25,14 +25,18 @@
 
 
         </div>
-
+        
+            <ngb-alert *ngIf="loginService.showOK">
+              Login Success !
+            </ngb-alert>
+          
     </mat-card-content>
     <button (click)="login()" class="login-button" mat-raised-button>Login</button>
     <span>or</span>
     <button  onClick="parent.location='https://lab.onesaitplatform.com/controlpanel/login'" class="guest-button" mat-raised-button>Sing Up</button>
     <span>or</span>
-    <button (click)="skipGuess()" class="guest-button" mat-raised-button>Register</button>
+    <button (click)="skipGuess()" class="guest-button" mat-raised-button>Guest</button>
     <hr>
-    <img class="mat-card-image-2" src="../../assets/img/rtLogo.png" alt="rtLogo">
-    <img class="mat-card-image-2" src="../../assets/img/onesaitLogo.PNG" alt="rtLogo">
+    <img class="mat-card-image-2" src="./assets/img/rtLogo.png" alt="rtLogo">
+    <img class="mat-card-image-2" src="./assets/img/onesaitLogo.PNG" alt="rtLogo">
 </mat-card>

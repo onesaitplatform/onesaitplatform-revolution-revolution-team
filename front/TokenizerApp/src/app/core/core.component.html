@@ -1,5 +1,12 @@
 <div>
         <app-header></app-header>
+        <ngb-alert *ngIf="sessionuser!='guest'">
+            Welcome {{sessionuser}}, how are you? We are here for you! If you want, 
+            <span> logout here</span>
+          </ngb-alert>
+          <ngb-alert *ngIf="sessionuser=='guest'">
+            Welcome!, how are you? You are a guest, are you happy to be here? :)
+          </ngb-alert>
     <mat-card>
             <mat-accordion>
                     <mat-expansion-panel>
@@ -26,10 +33,10 @@
                         <h4 class="blue">Choose File</h4>
                         <form (ngSubmit)="onSubmit()">
                             <div class="form-group">
-                                <input type="file"  [(ngModel)]="file" name="file"  />
+                                <input type="file" accept=".csv" name="image" (change)="changeListener($event)" />
                             </div>
                             <div class="form-group">
-                                <button *ngIf="!pressBtn" (click)="uploadFile()" class="btn btn-primary fr">Submit</button>
+                                <button *ngIf="!pressBtn" class="btn btn-primary fr">Submit</button>
                                 <mat-progress-bar *ngIf="pressBtn"[color]="blue" mode="indeterminate"></mat-progress-bar>
                                 <button (click)="nextToList()"  *ngIf="pressBtn" class="btn btn-primary m1 fr">Next</button>
                             </div>
@@ -38,7 +45,7 @@
                 </div>
             </div>
         </mat-card-content>
-
+       
         <hr>
         <app-footer></app-footer>
     </mat-card>

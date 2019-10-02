@@ -15,6 +15,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,6 +26,7 @@ import { FooterComponent } from './footer/footer.component';
 import { OptionComponent } from './option/option.component';
 import { DownloadComponent } from './download/download.component';
 import { LoginService } from './login.service';
+
 
 
 const appRoutes: Routes = [
@@ -52,6 +54,7 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatRadioModule,
     MatTableModule,
+    MatProgressSpinnerModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
     MatSlideToggleModule,
