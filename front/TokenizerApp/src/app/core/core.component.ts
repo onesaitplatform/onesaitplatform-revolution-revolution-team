@@ -12,21 +12,18 @@ import {environment} from '../../environments/environment';
 
 
 export class CoreComponent implements OnInit {
-  file:  File;
+  fileToUpload:  File;
   pressBtn: boolean;
   constructor(private http: HttpClient, private router: Router, protected fileManagerService: FileManagerService ) { }
 
-  fileProgress(fileInput: any) {
-      this.file = <File>fileInput.target.files[0];
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
   }
-
   onSubmit() {
       this.pressBtn = true;
       const formData = new FormData();
       environment.fileToken = null;
-
-      this.fileManagerService.uploadFile(this.file);
-
+      this.fileManagerService.postFile(this.fileToUpload);
       // TODO loading gif
       setTimeout(() => {
         if ( environment.fileToken != null) {
@@ -54,8 +51,3 @@ export class CoreComponent implements OnInit {
 
   }
 }
-
-
-
-
-
