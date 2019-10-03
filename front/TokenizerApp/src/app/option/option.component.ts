@@ -10,6 +10,8 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
+
+  {fieldName: 0, name: 'Nombre', weight: 1.0079},
   {fieldName: 1, name: 'Nombre', weight: 1.0079},
   {fieldName: 2, name: 'Dni', weight: 4.0026},
   {fieldName: 3, name: 'Dirección', weight: 6.941},
@@ -34,11 +36,12 @@ export class OptionComponent implements OnInit {
 
   displayedColumns: string[] = this.getDisplayedColumns();
   // TODO quit when work
-  // dataSource  =  this.tokenifyService.listTokenifyFields(environment.fileToken);
-  dataSource = ELEMENT_DATA;
+  dataSource  =  this.tokenifyService.listTokenifyFields(environment.fileToken);
+  //dataSource = ELEMENT_DATA;
   favoriteTk: string;
 
   ngOnInit() {
+
   }
 
   nextToD() {

@@ -43,7 +43,6 @@ export class TokenifyService {
 
   async listTokenifyFields(idFile: String) {
     // TODO quit with real values
-    idFile = '5d94a4a918b39b000cf1bfd6';
     const httpOptions = {
       headers: new HttpHeaders({
         // tslint:disable-next-line:max-line-length

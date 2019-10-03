@@ -48,6 +48,5 @@ export class CoreComponent implements OnInit {
   }
 
   uploadFile() {
-
   }
 }
