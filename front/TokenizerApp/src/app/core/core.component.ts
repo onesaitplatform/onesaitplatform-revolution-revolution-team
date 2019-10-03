@@ -14,6 +14,7 @@ import {environment} from '../../environments/environment';
 export class CoreComponent implements OnInit {
   file:  File;
   pressBtn: boolean;
+  sessionuser = sessionStorage.getItem("userName");
   constructor(private http: HttpClient, private router: Router, protected fileManagerService: FileManagerService ) { }
 
   fileProgress(fileInput: any) {
