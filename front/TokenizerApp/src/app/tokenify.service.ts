@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../environments/environment';
+import {PeriodicElement} from './option/option.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenifyService {
-  private resultado: Object;
+  private resultado: PeriodicElement[];
+  private pass: string;
 
   constructor(protected http: HttpClient) { }
-
-  async putTokenifyLinks(idFile: String, flags: String , method: String) {
+  async putTokenifyLinks(idFile: string, flags: string[] , method: string) {
     // TODO quit with real values
-    flags = '[0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0]';
+    flags = ['0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
     idFile = '5d94a4a918b39b000cf1bfd6';
     method = 'FPE';
     const httpOptions = {
@@ -30,7 +31,7 @@ export class TokenifyService {
       environment.uploadUrl , body , httpOptions
     ).subscribe(
       res => {
-        this.resultado = res;
+        this.pass = res['generatedPass'];
         console.log('Correct: links obtained successful ');
 
       }, err => {
@@ -58,7 +59,7 @@ export class TokenifyService {
       environment.uploadUrl , body , httpOptions
     ).subscribe(
       res => {
-        this.resultado = res;
+        this.resultado = this.getPeriodicElements(res);
         console.log('Correct: links obtained successful ');
 
       }, err => {
@@ -66,6 +67,12 @@ export class TokenifyService {
         console.log(err);
       }
     );
+
+    return this.resultado;
   }
 
+  private getPeriodicElements(res: Object) {
+    //TODO this parse
+    return [];
+  }
 }

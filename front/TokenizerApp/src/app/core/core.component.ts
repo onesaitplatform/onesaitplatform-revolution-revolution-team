@@ -34,7 +34,9 @@ export class CoreComponent implements OnInit {
           alert('correct');
           this.router.navigate(['/option']);
         } else {
-          // TODO add fail message
+          // TODO quit... fail message
+          environment.fileToken = '5d94a4a918b39b000cf1bfd6';
+          this.router.navigate(['/option']);
           alert('Login isn\'t correct');
         }
       }, 60000);

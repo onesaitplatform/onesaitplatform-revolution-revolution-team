@@ -2,6 +2,8 @@
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import {PeriodicElement} from '../app/option/option.component';
+
 export const environment = {
   production: false,
   token: '',
@@ -10,7 +12,8 @@ export const environment = {
   loginUrl:  '/api/oauth-server/oauth/token',
   fileToken: '',
   uploadUrl: '/controlpanel/binary-repository',
-  jsondata: '../assets/data/data.json'
+  jsondata: '../assets/data/data.json',
+  filePass: ''
 };
 
 /*

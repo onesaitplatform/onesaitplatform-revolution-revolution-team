@@ -53,6 +53,7 @@ export class FileManagerService {
         console.log(err);
       }
     );
+    return this.file;
   }
 
   async modifyFile(fileToken: String, fileUpadted: File) {
