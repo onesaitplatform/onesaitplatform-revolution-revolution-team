@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   psw: string;
   submitLogin = false;
 
-  constructor(private router: Router , protected loginService: LoginService,alertConfig: NgbAlertConfig ) {
+  constructor(private router: Router ,public loginService: LoginService,alertConfig: NgbAlertConfig ) {
     alertConfig.type = 'success';
     alertConfig.dismissible = false;
    }

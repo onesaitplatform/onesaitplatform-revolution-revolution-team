@@ -16,7 +16,7 @@ export class CoreComponent implements OnInit {
   pressBtn: boolean;
   
   sessionuser = sessionStorage.getItem("userName");
-  constructor(private http: HttpClient, private router: Router, protected fileManagerService: FileManagerService ) { }
+  constructor(private http: HttpClient, private router: Router, public fileManagerService: FileManagerService ) { }
 
   // fileProgress(fileInput: any) {
   //     this.fileToUpload: File = null; = <File>fileInput.target.files[0];
