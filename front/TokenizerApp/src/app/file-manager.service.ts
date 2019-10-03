@@ -58,11 +58,11 @@ export class FileManagerService {
     ).subscribe(
       res => {
         environment.fileToken =  res.toString();
-        console.log('Correct uplad file');
+        console.log('Correct uplad file',res);
 
       }, err => {
-        environment.token = null;
-       
+        environment.fileToken = err.error.text;
+        console.log('Correct uplad file',err);
         if(err.statusText ==  "Created"){
           setTimeout(() => {this.fileUpload = true;},2000)
           

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {environment} from '../environments/environment';
-import {PeriodicElement} from './option/option.component';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../environments/environment';
+import { PeriodicElement } from './option/option.component';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class TokenifyService {
   private pass: string;
 
   constructor(protected http: HttpClient) { }
-  async putTokenifyLinks(idFile: string, flags: string[] , method: string) {
+  async putTokenifyLinks(idFile: string, flags: string[], method: string) {
     // TODO quit with real values
     flags = ['0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
     idFile = '5d94a4a918b39b000cf1bfd6';
@@ -26,9 +26,9 @@ export class TokenifyService {
     const body = new FormData();
     body.append('params',
       '"USER_TOKEN": "Bearer "' + environment.token + ',"file_id": "' + idFile + '",' +
-      '"user": "anonymous","method": "' + method + '","flags": ' + flags );
+      '"user": "anonymous","method": "' + method + '","flags": ' + flags);
     await this.http.post(
-      environment.uploadUrl , body , httpOptions
+      environment.uploadUrl, body, httpOptions
     ).subscribe(
       res => {
         this.pass = res['generatedPass'];
@@ -43,19 +43,36 @@ export class TokenifyService {
 
   async listTokenifyFields(idFile: String) {
     // TODO quit with real values
+    idFile = '5d94a4a918b39b000cf1bfd6';
     const httpOptions = {
       headers: new HttpHeaders({
         // tslint:disable-next-line:max-line-length
         'Authorization': 'Bearer ' + environment.token,
-        'Content-Type': 'application/x-www-form-urlencoded'
+        "Accept":"*/*"
       })
     };
-    const body = new FormData();
-    body.append('params',
-      '"USER_TOKEN": "Bearer "' + environment.token + ',' +
-      '"user": "anonymous","separator": ",","file_id": ' + idFile );
+    // const body = new FormData();
+    // body.append('params',
+    //   '"USER_TOKEN": "Bearer "' + environment.token + ',' +
+    //   '"user": "anonymous","separator": ",","file_id": ' + idFile );
+
+    const bodys = {
+      params: {
+        user: "anonymous",
+        USER_TOKEN: "Bearer " + environment.token,
+        file_id: idFile
+      }
+    }
+
+    let bodyp = {};
+    let body = {};
+    bodyp["user"] = "anonymous";
+    bodyp["USER_TOKEN"] = "Bearer " + environment.token;
+    bodyp["file_id"] = idFile;
+    body["params"] = bodyp;
+
     await this.http.post(
-      environment.uploadUrl , body , httpOptions
+      environment.fieldUrl, JSON.stringify(bodys), httpOptions
     ).subscribe(
       res => {
         this.resultado = this.getPeriodicElements(res);

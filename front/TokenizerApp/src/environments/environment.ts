@@ -9,10 +9,10 @@ export const environment = {
   token: '',
   userName: '',
   autorization: 'Basic b25lc2FpdHBsYXRmb3JtOm9uZXNhaXRwbGF0Zm9ybQ==',
-  loginUrl:  '/api/oauth-server/oauth/token',
+  loginUrl:  '/oauth-server/oauth/token',
   fileToken: '',
   uploadUrl: '/controlpanel/binary-repository',
-  fieldUrl: 'https://lab.onesaitplatform.com/api-manager/server/api/v1/tokenify/fields/',
+  fieldUrl: '/api-manager/server/api/v1/tokenify/fields',
   jsondata: '../assets/data/data.json',
   filePass: ''
 };

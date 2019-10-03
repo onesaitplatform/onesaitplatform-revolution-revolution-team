@@ -25,18 +25,18 @@ export class CoreComponent implements OnInit {
       environment.fileToken = null;
       this.fileManagerService.postFile(this.fileToUpload);
       // TODO loading gif
-      setTimeout(() => {
-        if ( environment.fileToken != null) {
-          // TODO add correct upload message
-          alert('correct');
-          this.router.navigate(['/option']);
-        } else {
-          // TODO quit... fail message
-          environment.fileToken = '5d94a4a918b39b000cf1bfd6';
-          this.router.navigate(['/option']);
-          alert('Login isn\'t correct');
-        }
-      }, 60000);
+      // setTimeout(() => {
+      //   if ( environment.fileToken != null) {
+      //     // TODO add correct upload message
+      //     alert('correct');
+      //     this.router.navigate(['/option']);
+      //   } else {
+      //     // TODO quit... fail message
+      //     environment.fileToken = '5d94a4a918b39b000cf1bfd6';
+      //     this.router.navigate(['/option']);
+      //     alert('Login isn\'t correct');
+      //   }
+      // }, 60000);
       // TODO Quit loading gif
   }
 
