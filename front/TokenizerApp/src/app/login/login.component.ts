@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import 'rxjs-compat/add/operator/map';
 import { LoginService } from '../login.service';
+import {NgbAlertConfig} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [NgbAlertConfig]
 })
 
 @Injectable()
@@ -16,7 +18,10 @@ export class LoginComponent implements OnInit {
   psw: string;
   submitLogin = false;
 
-  constructor(private router: Router , protected loginService: LoginService ) { }
+  constructor(private router: Router , protected loginService: LoginService,alertConfig: NgbAlertConfig ) {
+    alertConfig.type = 'success';
+    alertConfig.dismissible = false;
+   }
 
   ngOnInit() {
   }
@@ -26,18 +31,21 @@ export class LoginComponent implements OnInit {
     this.submitLogin = true;
     if (this.username && this.psw) {
     this.loginService.getToken(this.username, this.psw);
-    // TODO loading gif
-    setTimeout(() => {
-      if (environment.token != null) {
-        environment.userName = this.username;
-        // TODO add welcome message
-        this.router.navigate(['/core']);
-      } else {
-        // TODO add fail message
-        alert('Login isn\'t correct');
-      }
-    }, 6000);
-    // TODO Quit loading gif
+
+    // // TODO loading gif
+    // setTimeout(() => {
+    //   if (environment.token != null) {
+    //     environment.userName = this.username;
+    //     // TODO add welcome message
+    //     this.router.navigate(['/core']);
+    //   } else {
+    //     // TODO add fail message
+    //     alert('Login isn\'t correct');
+    //   }
+    // }, 6000);
+    // // TODO Quit loading gif
+
+
 }
   }
   skipGuess() {

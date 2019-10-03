@@ -1,5 +1,12 @@
 <div>
         <app-header></app-header>
+        <ngb-alert *ngIf="sessionuser!='guest'">
+            Welcome {{sessionuser}}, how are you? We are here for you! If you want, 
+            <span> logout here</span>
+          </ngb-alert>
+          <ngb-alert *ngIf="sessionuser=='guest'">
+            Welcome!, how are you? You are a guest, are you happy to be here? :)
+          </ngb-alert>
     <mat-card>
             <mat-accordion>
                     <mat-expansion-panel>
