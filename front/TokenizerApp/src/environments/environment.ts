@@ -14,7 +14,8 @@ export const environment = {
   uploadUrl: '/controlpanel/binary-repository',
   fieldUrl: '/api-manager/server/api/v1/tokenify/fields',
   jsondata: '../assets/data/data.json',
-  filePass: ''
+  filePass: '',
+  tokenfyUrl: 'https://lab.onesaitplatform.com/api-manager/server/api/v1/tokenify/links/'
 };
 
 /*
