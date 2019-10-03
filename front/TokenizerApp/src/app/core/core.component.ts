@@ -12,34 +12,39 @@ import {environment} from '../../environments/environment';
 
 
 export class CoreComponent implements OnInit {
-  file:  File;
+  fileToUpload: File = null;
   pressBtn: boolean;
+  
   sessionuser = sessionStorage.getItem("userName");
   constructor(private http: HttpClient, private router: Router, protected fileManagerService: FileManagerService ) { }
 
-  fileProgress(fileInput: any) {
-      this.file = <File>fileInput.target.files[0];
+  // fileProgress(fileInput: any) {
+  //     this.fileToUpload: File = null; = <File>fileInput.target.files[0];
+  // }
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
   }
+
 
   onSubmit() {
       this.pressBtn = true;
-      const formData = new FormData();
-      environment.fileToken = null;
-
-      this.fileManagerService.uploadFile(this.file);
+      this.fileManagerService.postFile(this.fileToUpload);
+    
+      
 
       // TODO loading gif
-      setTimeout(() => {
-        if ( environment.fileToken != null) {
-          // TODO add correct upload message
-          alert('correct');
-          this.router.navigate(['/option']);
-        } else {
-          // TODO add fail message
-          alert('Login isn\'t correct');
-        }
-      }, 60000);
-      // TODO Quit loading gif
+      // setTimeout(() => {
+      //   if ( environment.fileToken != null) {
+      //     // TODO add correct upload message
+      //     alert('correct');
+      //     this.router.navigate(['/option']);
+      //   } else {
+      //     // TODO add fail message
+      //     alert('Login isn\'t correct');
+      //   }
+      // }, 60000);
+      // // TODO Quit loading gif
   }
 
   nextToList() {

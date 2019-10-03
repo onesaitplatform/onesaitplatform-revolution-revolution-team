@@ -8,22 +8,53 @@ import {Observable} from 'rxjs';
 export class FileManagerService {
   env = environment;
   public file: File;
+  fileUpload:boolean=false;
+  namefileUploaded;
 
   constructor(protected http: HttpClient) { }
 
-  async uploadFile(file: File) {
+  // async uploadFile(file: File) {
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       // tslint:disable-next-line:max-line-length
+  //       'Authorization': 'Bearer ' + environment.token,
+  //       'Content-Type': 'application/x-www-form-urlencoded'
+  //     })
+  //   };
+  //   const body = new FormData();
+  //   body.append('repository', '');
+  //   body.append('file', file);
+  //   await this.http.post(
+  //     environment.uploadUrl , body , httpOptions
+  //   ).subscribe(
+  //     res => {
+  //       environment.fileToken =  res.toString();
+  //       console.log('Correct uplad file');
+
+  //     }, err => {
+  //       environment.token = null;
+  //       console.log(err);
+  //     }
+  //   );
+  // }
+
+  postFile(fileToUpload: File) {
+
     const httpOptions = {
       headers: new HttpHeaders({
         // tslint:disable-next-line:max-line-length
-        'Authorization': 'Bearer ' + environment.token,
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Authorization': 'Bearer ' + environment.token
       })
     };
-    const body = new FormData();
-    body.append('repository', '');
-    body.append('file', file);
-    await this.http.post(
-      environment.uploadUrl , body , httpOptions
+
+    const endpoint = environment.uploadUrl;
+    const formData: FormData = new FormData();
+    this.namefileUploaded = fileToUpload.name;
+    formData.append('file', fileToUpload, fileToUpload.name);
+    
+  
+      this.http.post(
+      environment.uploadUrl , formData , httpOptions
     ).subscribe(
       res => {
         environment.fileToken =  res.toString();
@@ -31,10 +62,16 @@ export class FileManagerService {
 
       }, err => {
         environment.token = null;
-        console.log(err);
+       
+        if(err.statusText ==  "Created"){
+          setTimeout(() => {this.fileUpload = true;},2000)
+          
+        }
+        
       }
     );
-  }
+     
+}
 
   async getFile(fileToken: String) {
     const httpOptions = {

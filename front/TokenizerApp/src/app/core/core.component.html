@@ -30,14 +30,19 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
-                        <h4 class="blue">Choose File</h4>
-                        <form (ngSubmit)="onSubmit()">
-                            <div class="form-group">
-                                <input type="file"  [(ngModel)]="file" name="file"  />
+                        <h4 *ngIf="!fileManagerService.fileUpload" class="blue">Choose File</h4>
+                        <form  (ngSubmit)="onSubmit()">
+                            <div *ngIf="!fileManagerService.fileUpload" class="form-group">
+                              <input type="file"
+                              id="file"
+                              (change)="handleFileInput($event.target.files)">
                             </div>
+                            <ngb-alert *ngIf="fileManagerService.fileUpload">
+                              File {{fileManagerService.namefileUploaded}} Uploaded !
+                            </ngb-alert>
                             <div class="form-group">
                                 <button *ngIf="!pressBtn" (click)="uploadFile()" class="btn btn-primary fr">Submit</button>
-                                <mat-progress-bar *ngIf="pressBtn"[color]="blue" mode="indeterminate"></mat-progress-bar>
+                                <mat-progress-bar *ngIf="pressBtn && !fileManagerService.fileUpload"[color]="blue" mode="indeterminate"></mat-progress-bar>
                                 <button (click)="nextToList()"  *ngIf="pressBtn" class="btn btn-primary m1 fr">Next</button>
                             </div>
                         </form>
