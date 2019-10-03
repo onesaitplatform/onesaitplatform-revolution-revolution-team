@@ -11,6 +11,7 @@ export class TokenifyService {
   private pass: string;
 
   constructor(protected http: HttpClient) { }
+
   async putTokenifyLinks(idFile: string, flags: string[] , method: string) {
     // TODO quit with real values
     flags = ['0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
@@ -28,7 +29,7 @@ export class TokenifyService {
       '"USER_TOKEN": "Bearer "' + environment.token + ',"file_id": "' + idFile + '",' +
       '"user": "anonymous","method": "' + method + '","flags": ' + flags );
     await this.http.post(
-      environment.uploadUrl , body , httpOptions
+      environment.tokenfyUrl , body , httpOptions
     ).subscribe(
       res => {
         this.pass = res['generatedPass'];
