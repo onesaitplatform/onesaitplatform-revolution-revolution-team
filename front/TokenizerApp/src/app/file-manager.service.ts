@@ -1,42 +1,18 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class FileManagerService {
   env = environment;
   public file: File;
-  fileUpload:boolean=false;
+  fileUpload: boolean;
   namefileUploaded;
 
-  constructor(protected http: HttpClient) { }
-
-  // async uploadFile(file: File) {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       // tslint:disable-next-line:max-line-length
-  //       'Authorization': 'Bearer ' + environment.token,
-  //       'Content-Type': 'application/x-www-form-urlencoded'
-  //     })
-  //   };
-  //   const body = new FormData();
-  //   body.append('repository', '');
-  //   body.append('file', file);
-  //   await this.http.post(
-  //     environment.uploadUrl , body , httpOptions
-  //   ).subscribe(
-  //     res => {
-  //       environment.fileToken =  res.toString();
-  //       console.log('Correct uplad file');
-
-  //     }, err => {
-  //       environment.token = null;
-  //       console.log(err);
-  //     }
-  //   );
-  // }
+  constructor(protected http: HttpClient) {
+    this.fileUpload = false;
+  }
 
   postFile(fileToUpload: File) {
 
@@ -51,26 +27,23 @@ export class FileManagerService {
     const formData: FormData = new FormData();
     this.namefileUploaded = fileToUpload.name;
     formData.append('file', fileToUpload, fileToUpload.name);
-    
-  
-      this.http.post(
+    this.http.post(
       environment.uploadUrl , formData , httpOptions
     ).subscribe(
       res => {
         environment.fileToken =  res.toString();
-        console.log('Correct uplad file',res);
+        console.log('Correct upload file',  res);
 
       }, err => {
         environment.fileToken = err.error.text;
-        console.log('Correct uplad file',err);
-        if(err.statusText ==  "Created"){
-          setTimeout(() => {this.fileUpload = true;},2000)
-          
+        console.log('Correct upload file', err);
+        if (err.statusText === 'Created') {
+          setTimeout(() => {
+            this.fileUpload = true;
+          }, 2000);
         }
-        
       }
     );
-     
 }
 
   async getFile(fileToken: String) {
@@ -132,15 +105,4 @@ export class FileManagerService {
     );
   }
 
-  async getJSONFile(fileToken: String): Promise<Observable<any>> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        // tslint:disable-next-line:max-line-length
-        'Authorization': 'Bearer ' + environment.token
-      })
-    };
-    return this.http.get(
-      environment.uploadUrl + '/' + fileToken , httpOptions
-    ).map((res: any) => res.json());
-  }
 }
