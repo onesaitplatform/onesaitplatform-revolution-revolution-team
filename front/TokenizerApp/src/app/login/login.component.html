@@ -25,11 +25,13 @@
 
 
         </div>
-        
+
         <ngb-alert *ngIf="loginService.showOK">
             Login Success !
-          </ngb-alert>
-
+        </ngb-alert>
+        <ngb-alert style="background-color: darkred; color: white; " *ngIf="loginService.showKO">
+          Login Fail !
+        </ngb-alert>
     </mat-card-content>
     <button (click)="login()" class="login-button" mat-raised-button>Login</button>
     <span>or</span>

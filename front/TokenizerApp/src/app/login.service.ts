@@ -14,6 +14,7 @@ export class LoginService {
 
   env = environment;
   showOK : boolean = false;
+  showKO : boolean = false;
 
   constructor(protected http: HttpClient,private router:Router) {}
 
@@ -46,6 +47,9 @@ export class LoginService {
       }, err => {
         environment.token = null;
         console.log(err);
+        this.showKO = true;
+        setTimeout(() => {   this.showKO = false; },10000);
+
       }
     );
   }

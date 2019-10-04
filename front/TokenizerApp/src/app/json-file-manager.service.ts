@@ -34,13 +34,13 @@ export class JsonFileManagerService {
   constructor( protected fileManagerService: FileManagerService ) { }
 
 
-  public addDataFile (fileToken: String, filename: String, username: String) {
+  public addDataFile (fileToken: String) {
     this.fileManagerService.getFile(fileToken);
     // TODO add to data file and file
     this.fileManagerService.modifyFile(fileToken, this.fileManagerService.file);
   }
 
-  public deleteDataFromFile (fileToken: String, filename: String, username: String) {
+  public deleteDataFromFile (fileToken: String) {
     this.fileManagerService.getFile(fileToken);
     // TODO remove data file and file
     this.fileManagerService.modifyFile(fileToken, this.fileManagerService.file);
