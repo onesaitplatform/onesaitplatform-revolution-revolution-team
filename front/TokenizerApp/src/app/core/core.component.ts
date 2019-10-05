@@ -14,7 +14,8 @@ import {environment} from '../../environments/environment';
 export class CoreComponent implements OnInit {
   fileToUpload:  File;
   pressBtn: boolean;
-  constructor(private http: HttpClient, private router: Router, protected fileManagerService: FileManagerService ) { }
+  sessionuser = sessionStorage.getItem("userName")
+  constructor(private http: HttpClient, private router: Router, public fileManagerService: FileManagerService ) { }
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);

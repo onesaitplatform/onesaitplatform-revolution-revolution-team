@@ -15,7 +15,7 @@ export const environment = {
   fieldUrl: '/api-manager/server/api/v1/tokenify/fields',
   jsondata: '../assets/data/data.json',
   filePass: '',
-  tokenfyUrl: 'https://lab.onesaitplatform.com/api-manager/server/api/v1/tokenify/links/',
+  tokenfyUrl: '/api-manager/server/api/v1/tokenify/links/',
   haveFieldData: false
 };
 

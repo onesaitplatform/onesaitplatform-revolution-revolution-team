@@ -50,8 +50,7 @@ export class LoginComponent implements OnInit {
   }
   skipGuess() {
     
-    sessionStorage.setItem("userName","guest")
-    this.router.navigate(['/core']);
+    this.loginService.getToken("anonymous", "Anonymous2019!");
   }
 
 }

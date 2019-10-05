@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {FileManagerService} from '../file-manager.service';
+import { TokenifyService } from '../tokenify.service';
 import {environment} from '../../environments/environment';
 
 
@@ -13,12 +14,12 @@ import {environment} from '../../environments/environment';
 export class DownloadComponent implements OnInit {
   private file: File;
   private filePass: string;
-  constructor(private router: Router, protected fileManagerService: FileManagerService) { }
+  constructor(private router: Router, protected fileManagerService: FileManagerService, public tokenifyService:TokenifyService ) { }
 
   ngOnInit() {
-    this.fileManagerService.getFile(environment.fileToken);
-    this.file = this.fileManagerService.file;
-    this.filePass = environment.filePass;
+    // this.fileManagerService.getFile(environment.fileToken);
+    // this.file = this.fileManagerService.file;
+    // this.filePass = environment.filePass;
   }
 
   returnTo(){
@@ -26,10 +27,10 @@ export class DownloadComponent implements OnInit {
   }
 
   getTokenOnWindow() {
-    // TODO Show token in modal screen
+    window.open(this.tokenifyService.se); 
   }
 
   downloadFile() {
-    // TODO Download file
+    window.open(this.tokenifyService.op); 
   }
 }

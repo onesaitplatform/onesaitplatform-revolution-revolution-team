@@ -54,7 +54,7 @@ export class FileManagerService {
       })
     };
     await this.http.get(
-      environment.uploadUrl + '/' + fileToken , httpOptions
+      environment.tokenfyUrl + '/' + fileToken , httpOptions
     ).subscribe(
       res => {
         this.file = new File(res['fileName'], res['data']);

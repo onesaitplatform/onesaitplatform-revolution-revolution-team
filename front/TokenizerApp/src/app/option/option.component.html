@@ -38,7 +38,7 @@
         <mat-card-title class="blue mt">What tokenization method do you prefer?</mat-card-title>
 
         <mat-radio-group aria-labelledby="adio-group-label" class="radio-group"
-            [(ngModel)]="favoriteTk">
+            [(ngModel)]="this.tokenifyService.favoriteTk">
             <mat-radio-button class="radio-button" *ngFor="let tk of tks" [value]="tk">
                 {{tk}}
             </mat-radio-button>

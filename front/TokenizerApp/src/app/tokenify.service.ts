@@ -10,30 +10,55 @@ export class TokenifyService {
   private resultado;
   private pass: string;
   public fields: string[];
+  public value;
+  favoriteTk: string;
+  se: string;
+  op: string;
 
   constructor(protected http: HttpClient) { }
 
-  async putTokenifyLinks(idFile: string, flags: string[] , method: string) {
+  async putTokenifyLinks(idFile: string, flags: string[], method: string) {
     // TODO quit with real values
     //flags = ['0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
     //idFile = '5d94a4a918b39b000cf1bfd6';
-    //method = 'FPE';
+    switch (this.favoriteTk) {
+      case 'Symetric encryption':
+        method = 'FPE';
+        break
+      case 'Asymentric encryption':
+        method = 'AES';
+        break
+      case 'Obfuscation':
+        method = 'MAP';
+        break
+    }
     const httpOptions = {
       headers: new HttpHeaders({
         // tslint:disable-next-line:max-line-length
         'Authorization': 'Bearer ' + environment.token,
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Accept': '*/*'
       })
     };
-    const body = new FormData();
-    body.append('params',
-      '"USER_TOKEN": "Bearer "' + environment.token + ',"file_id": "' + idFile + '",' +
-      '"user": "anonymous","method": "' + method + '","flags": ' + flags);
+    // const body = new FormData();
+    // body.append('params',
+    //   '"USER_TOKEN": "Bearer "' + environment.token + ',"file_id": "' + idFile + '",' +
+    //   '"user": "anonymous","method": "' + method + '","flags": ' + flags);
+
+    let bodyp = {};
+    let body = {};
+    bodyp['user'] = 'anonymous';
+    bodyp['USER_TOKEN'] = 'Bearer ' + environment.token;
+    bodyp['file_id'] = idFile;
+    bodyp['method'] = method;
+    bodyp['flags'] = this.value;
+    body['params'] = bodyp;
+
     await this.http.post(
-      environment.tokenfyUrl , body , httpOptions
+      environment.tokenfyUrl, body, httpOptions
     ).subscribe(
       res => {
-        this.pass = res['generatedPass'];
+        let resp = res['body']['results']['msg'][0]['data'];
+        this.getLinkOut(resp);
         console.log('Correct: links obtained successful ');
 
       }, err => {
@@ -60,39 +85,89 @@ export class TokenifyService {
       }
     }
 
+    
+
     let bodyp = {};
     let body = {};
     bodyp['user'] = 'anonymous';
     bodyp['USER_TOKEN'] = 'Bearer ' + environment.token;
     bodyp['file_id'] = idFile;
     body['params'] = bodyp;
-    const json = JSON.stringify(bodys);
+
+ 
     await this.http.post(
-      environment.fieldUrl, JSON.stringify(json), httpOptions
+      environment.fieldUrl, body, httpOptions
     ).subscribe(
       res => {
-        this.resultado = res['body']['results']['msg']['data'];
-        this.getFields();
-        const json2 = JSON.stringify(  this.resultado);
+        let resp = res['body']['results']['msg'][0]['data'];
+        this.getFields(resp)
+
+
       }, err => {
-        //TODO quit when response go well
-        this.resultado = "Info - IotBrokerClient will be soon deprecated, please use DigitalClient instead\\n{'id': '5d97825a18b39b000cf1c14b'," +
-          " 'values': ['2539', 'Clean & quiet apt home by the park', '2787', 'John', 'Brooklyn', 'Kensington', '40.64749', '-73.97237', 'Private room', '149', " +
-          "'1', '9', '2018-10-19', '0.21', '6', '365\\\\n'], 'fields': ['id', 'name', 'host_id', 'host_name', 'neighbourhood_group', 'neighbourhood', 'latitude'," +
-          " 'longitude', 'room_type', 'price', 'minimum_nights', 'number_of_reviews', 'last_review', 'reviews_per_month', 'calculated_host_listings_count', " +
-          "'availability_365\\\\n']}\\n(True, '{\\message\\:\"Disconnected\"}')\n";
-        this.getFields();
-        console.log(err);
+
       }
     );
 
     return this.resultado;
   }
 
-  private getFields() {
-    this.resultado = this.resultado.replace('\\n(True, \'{\\message\\:"Disconnected"}\')\n', ' ');
-    this.resultado = this.resultado.match('\'fields\':(.*)');
-    this.fields = this.resultado[1].split(',');
+  private getFields(resp) {
+    // res = res.replace('\\n(True, \'{\\message\\:"Disconnected"}\')\n', ' ');
+    // res = res.match('\'fields\':(.*)');
+    // this.fields = res[1].split(',');
+    // console.log("fields",this.fields)
+
+    let jsonF = JSON.stringify(resp);
+    jsonF = jsonF.substring(jsonF.indexOf("'fields': "), jsonF.indexOf('}'));
+    jsonF = jsonF.substring(jsonF.indexOf("["));
+    jsonF = jsonF.replace(/'/g, '');
+    jsonF = jsonF.replace(/ /g, '');
+    jsonF = jsonF.replace("\\n", "");
+    jsonF = jsonF.replace("[", "").replace("]", "")
+
+    this.fields = jsonF.split(',');
+    console.log("body", this.fields)
+
   }
+
+  // private getLinkSec(resp) {
+  //   // res = res.replace('\\n(True, \'{\\message\\:"Disconnected"}\')\n', ' ');
+  //   // res = res.match('\'fields\':(.*)');
+  //   // this.fields = res[1].split(',');
+  //   // console.log("fields",this.fields)
+
+  //   let jsonF = JSON.stringify(resp);
+  //   jsonF = jsonF.substring(jsonF.indexOf("'secret': "), jsonF.indexOf('}'));
+  //   jsonF = jsonF.substring(jsonF.indexOf("["));
+  //   jsonF = jsonF.replace(/'/g, '');
+  //   jsonF = jsonF.replace(/ /g, '');
+  //   jsonF = jsonF.replace("\\n", "");
+  //   jsonF = jsonF.replace("[", "").replace("]", "")
+
+  //   this.fields = jsonF.split(',');
+  //   console.log("body", this.fields)
+
+  // }
+
+  private getLinkOut(resp) {
+
+
+    let jsonF = JSON.stringify(resp);
+    this.se = jsonF.substring(
+      jsonF.lastIndexOf("'secret': '") + 11,
+      jsonF.lastIndexOf("', 'output'")
+    );
+
+    this.op = jsonF.substring(
+      jsonF.lastIndexOf("'output': '") + 11,
+      jsonF.lastIndexOf("'}")
+    );
+
+    console.log("jsonF", jsonF)
+    console.log("secret", this.se)
+    console.log("op", this.op)
+
+  }
+
 
 }

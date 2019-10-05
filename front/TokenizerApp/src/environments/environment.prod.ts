@@ -6,5 +6,10 @@ export const environment = {
   loginUrl:  'https://lab.onesaitplatform.com/oauth-server/oauth/token',
   fileToken: '',
   uploadUrl: 'https://lab.onesaitplatform.com/controlpanel/binary-repository',
-  jsondata: '../assets/data/data.json'
+  fieldUrl: 'https://lab.onesaitplatform.com/api-manager/server/api/v1/tokenify/fields',
+  jsondata: '../assets/data/data.json',
+  filePass: '',
+  tokenfyUrl: 'https://lab.onesaitplatform.com/api-manager/server/api/v1/tokenify/links/',
+  haveFieldData: false
 };
+
