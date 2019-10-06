@@ -1,6 +1,13 @@
-<div>
+<div style="width: 75%; margin-top:10%; margin:0 auto;padding-top: -20%; padding-bottom: 50px;">
         <app-header></app-header>
-    <mat-card>
+        <ngb-alert *ngIf="sessionuser!='guest'">
+            Welcome {{sessionuser}}, how are you? We are here for you! If you want,
+            <span> logout here</span>
+          </ngb-alert>
+          <ngb-alert *ngIf="sessionuser=='guest'">
+            Welcome!, how are you? You are a guest, are you happy to be here? :)
+          </ngb-alert>
+        <mat-card>
             <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
@@ -17,20 +24,24 @@
                   <hr>
         <mat-card-header class="blue">
             <mat-card-title>What dataset do you want to tokenize today?</mat-card-title>
-            <mat-card-title class="b1">CSV files are welcomed</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
-                        <h4 class="blue">Choose File</h4>
-                        <form (ngSubmit)="onSubmit()">
-                            <div class="form-group">
-                                <input type="file"  [(ngModel)]="file" name="file"  />
+                        <h4 *ngIf="!fileManagerService.fileUpload" class="blue">Choose File</h4>
+                        <form  (ngSubmit)="onSubmit()">
+                            <div *ngIf="!fileManagerService.fileUpload" class="form-group">
+                              <input type="file"
+                              id="file"
+                              (change)="handleFileInput($event.target.files)">
                             </div>
+                            <ngb-alert *ngIf="fileManagerService.fileUpload">
+                              File {{fileManagerService.namefileUploaded}} Uploaded !
+                            </ngb-alert>
                             <div class="form-group">
                                 <button *ngIf="!pressBtn" (click)="uploadFile()" class="btn btn-primary fr">Submit</button>
-                                <mat-progress-bar *ngIf="pressBtn"[color]="blue" mode="indeterminate"></mat-progress-bar>
+                                <mat-progress-bar *ngIf="pressBtn && !fileManagerService.fileUpload"[color]="blue" mode="indeterminate"></mat-progress-bar>
                                 <button (click)="nextToList()"  *ngIf="pressBtn" class="btn btn-primary m1 fr">Next</button>
                             </div>
                         </form>

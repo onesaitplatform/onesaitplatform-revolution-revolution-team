@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { environment } from '../../environments/environment';
+import { TokenifyService } from '../tokenify.service';
+import { FileManagerService } from '../file-manager.service';
+import { MatSlideToggleChange, MatTable } from '@angular/material';
 
 export interface PeriodicElement {
   name: string;
@@ -8,18 +11,8 @@ export interface PeriodicElement {
   weight: number;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {fieldName: 1, name: 'Test', weight: 1.0079},
-  {fieldName: 2, name: 'Test', weight: 4.0026},
-  {fieldName: 3, name: 'Test', weight: 6.941},
-  {fieldName: 4, name: 'Test', weight: 9.0122},
-  {fieldName: 5, name: 'Test', weight: 10.811},
-  {fieldName: 6, name: 'Test', weight: 12.0107},
-  {fieldName: 7, name: 'Test', weight: 14.0067},
-  {fieldName: 8, name: 'Test', weight: 15.9994},
-  {fieldName: 9, name: 'Test', weight: 18.9984},
-  {fieldName: 10, name: 'Test', weight: 20.1797},
-];
+const ELEMENT_DATA: PeriodicElement[] = [];
+const tks: String[] = ['Symetric encryption', 'Asymentric encryption', 'Obfuscation'];
 
 @Component({
   selector: 'app-option',
@@ -28,18 +21,65 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class OptionComponent implements OnInit {
 
-  constructor(private router:Router) { }
-  displayedColumns: string[] = ['position', 'name', 'weight'];
   dataSource = ELEMENT_DATA;
+  private values;
+  constructor(private router: Router, public tokenifyService: TokenifyService, public fileManagerService: FileManagerService) {
 
+  }
+  @ViewChild(MatTable, null) table: MatTable<PeriodicElement[]>;
+  displayedColumns: string[] = ['position', 'name', 'weight'];
+
+  // TODO quit when work
+  //dataSource = ELEMENT_DATA;
   favoriteTk: string;
   tks: string[] = ['Symetric encryption', 'Asymentric encryption', 'Obfuscation'];
 
   ngOnInit() {
+    this.getListOfFieldsOnTable();
   }
 
-  nextToD(){
+  private getListOfFieldsOnTable() {
+    if (!environment.haveFieldData) {
+      this.tokenifyService.listTokenifyFields(environment.fileToken);
+      setTimeout(() => {
+        this.createElementData();
+      }, 1000);
+    }
+    return ELEMENT_DATA;
+  }
+
+  nextToD() {
+    this.tokenifyService.putTokenifyLinks(environment.fileToken, this.values, this.favoriteTk);
     this.router.navigate(['/download']);
   }
 
+  private getDisplayedColumns() {
+    return this.values;
+  }
+  private createElementData() {
+    let i = 0;
+    var valuess = new Array(this.tokenifyService.fields.length);
+    this.tokenifyService.fields.forEach(function (field) {
+      valuess[i] = '0';
+      ELEMENT_DATA[i] = { fieldName: i, name: field, weight: 1 };
+      console.log(field);
+      i++;
+    });
+    this.values = valuess;
+    environment.haveFieldData = true;
+    this.dataSource = ELEMENT_DATA;
+    this.table.renderRows();
+    console.log("data",this.dataSource);
+    console.log("values",this.values);
+  }
+
+  fieldChangeAction(fieldName: any) {
+    console.log ("fieldName",fieldName)
+    if (this.values[fieldName] == "0"){
+      this.values[fieldName] = "1"
+    } else this.values[fieldName] = "0"
+
+    console.log("values",this.values);
+    this.tokenifyService.value = JSON.stringify(this.values)
+  }
 }

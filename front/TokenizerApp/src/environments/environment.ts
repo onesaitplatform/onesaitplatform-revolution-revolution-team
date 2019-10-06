@@ -2,14 +2,22 @@
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import {PeriodicElement} from '../app/option/option.component';
+
 export const environment = {
   production: false,
   token: '',
   userName: '',
   autorization: 'Basic b25lc2FpdHBsYXRmb3JtOm9uZXNhaXRwbGF0Zm9ybQ==',
-  loginUrl:  '/api/oauth-server/oauth/token',
+  loginUrl:  '/oauth-server/oauth/token',
   fileToken: '',
-  uploadUrl: 'https://lab.onesaitplatform.com/controlpanel/binary-repository'
+  uploadUrl: '/controlpanel/binary-repository',
+  fieldUrl: '/api-manager/server/api/v1/tokenify/fields',
+  dataFileID: '5d99f6b818b39b000cf1cc84',
+  filePass: '',
+  tokenfyUrl: '/api-manager/server/api/v1/tokenify/links/',
+  haveFieldData: false,
+  dataFile:  Blob
 };
 
 /*

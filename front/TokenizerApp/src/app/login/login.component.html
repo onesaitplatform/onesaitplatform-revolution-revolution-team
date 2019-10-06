@@ -1,38 +1,54 @@
-<mat-card style="width: 100%;">
+<div style="padding-top: 20%;" >
+<mat-card style="width: 60%;margin-top:10%; margin:0 auto;">
     <mat-card-header>
-        <mat-card-title>Tokenify App</mat-card-title>
+        <mat-card-title style="text-align: center; margin-left: 55px;">Login to Tokenify</mat-card-title>
     </mat-card-header>
-    <img mat-card-image src="../../assets/img/logo.JPG" alt="logo">
-    <mat-card-content class="login-cont">
-        <mat-form-field>
-            <input id="username" name="username" [(ngModel)]="username" #name="ngModel" matInput
-                placeholder="Username" required>
-        </mat-form-field>
-        <mat-form-field>
-            <input type="password" id="psw" name="psw" [(ngModel)]="psw" #name="ngModel" matInput
-                placeholder="Password" required>
-        </mat-form-field>
+  <br />
+    <div style="width: 100%; height: 100px">
+      <img mat-card-image src="./assets/img/logo.JPG" alt="logo style=" style="width: 40%;">
+    </div>
+    <div style="text-align: center">
+      <mat-card-content class="login-cont">
+          <mat-form-field style="margin-left: 60px;">
+              <input id="username" name="username" [(ngModel)]="username" #name="ngModel" matInput
+                  placeholder="Username" required>
+          </mat-form-field>
+          <mat-form-field style="margin-left: 60px;">
+              <input type="password" id="psw" name="psw" [(ngModel)]="psw" #name="ngModel" matInput
+                  placeholder="Password" required>
+          </mat-form-field>
 
-        <div *ngIf="submitLogin && (!username || !psw)" class="alert alert-danger">
+          <div *ngIf="submitLogin && (!username || !psw)" class="alert alert-danger">
 
-            <div *ngIf="!username">
-                Username is required.
-            </div>
+              <div *ngIf="!username">
+                  Username is required.
+              </div>
 
-            <div *ngIf="!psw">
-                Password is required.
-            </div>
+              <div *ngIf="!psw">
+                  Password is required.
+              </div>
 
 
-        </div>
+          </div>
 
-    </mat-card-content>
+          <ngb-alert *ngIf="loginService.showOK">
+              Login Success !
+          </ngb-alert>
+          <ngb-alert style="background-color: darkred; color: white; " *ngIf="loginService.showKO">
+            Login Fail !
+          </ngb-alert>
+      </mat-card-content>
+    </div>
     <button (click)="login()" class="login-button" mat-raised-button>Login</button>
     <span>or</span>
     <button  onClick="parent.location='https://lab.onesaitplatform.com/controlpanel/login'" class="guest-button" mat-raised-button>Sing Up</button>
     <span>or</span>
-    <button (click)="skipGuess()" class="guest-button" mat-raised-button>Register</button>
+    <button (click)="skipGuess()" class="guest-button" mat-raised-button>Guest</button>
     <hr>
-    <img class="mat-card-image-2" src="../../assets/img/rtLogo.png" alt="rtLogo">
-    <img class="mat-card-image-2" src="../../assets/img/onesaitLogo.PNG" alt="rtLogo">
+    <div style="width: 100%; height: 25px">
+      <img class="mat-card-image-2" src="https://www.comillas.edu/media/k2/items/cache/82666daada52f04f02214f4311d23448_L.jpg" alt="rtLogo" style="width: 30%; float: right;margin-right: 10px;" >
+    </div>
+
+
 </mat-card>
+</div>
