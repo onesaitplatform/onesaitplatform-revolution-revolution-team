@@ -92,7 +92,9 @@ export class TokenifyService {
     bodyp['user'] = 'anonymous';
     bodyp['USER_TOKEN'] = 'Bearer ' + environment.token;
     bodyp['file_id'] = idFile;
+    bodyp['separator'] = ",";
     body['params'] = bodyp;
+    
 
  
     await this.http.post(
