@@ -3,19 +3,34 @@ import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Router } from '@angular/router';
 import {FileManagerService} from '../file-manager.service';
 import {environment} from '../../environments/environment';
+import * as $ from 'jquery';
 
+export interface FileElement {
+  id: string;
+  name: string;
+}
+
+const ELEMENT_DATA: FileElement[] = [];
 @Component({
   selector: 'app-core',
   templateUrl: './core.component.html',
   styleUrls: ['./core.component.css']
 })
 
-
 export class CoreComponent implements OnInit {
   fileToUpload:  File;
   pressBtn: boolean;
-  sessionuser = sessionStorage.getItem("userName")
-  constructor(private http: HttpClient, private router: Router, public fileManagerService: FileManagerService ) { }
+  sessionuser = sessionStorage.getItem('userName');
+  dataSource = ELEMENT_DATA;
+  constructor(private http: HttpClient, private router: Router, public fileManagerService: FileManagerService ) {
+    debugger;
+    // tslint:disable-next-line:prefer-const
+
+    $.getJSON( environment.dataFile.toString(), function( data ) {
+        this.data = data;
+    });
+    console.log( this.data );
+  }
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import 'rxjs-compat/add/operator/map';
 import { LoginService } from '../login.service';
+import { FileManagerService } from '../file-manager.service';
 import {NgbAlertConfig} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   psw: string;
   submitLogin = false;
 
-  constructor(private router: Router ,public loginService: LoginService,alertConfig: NgbAlertConfig ) {
+  constructor(private router: Router ,public loginService: LoginService,public fileManagerService: FileManagerService,alertConfig: NgbAlertConfig ) {
     alertConfig.type = 'success';
     alertConfig.dismissible = false;
    }
@@ -27,30 +28,23 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+
     environment.token = null;
     this.submitLogin = true;
     if (this.username && this.psw) {
     this.loginService.getToken(this.username, this.psw);
+    setTimeout(() => {
+      this.fileManagerService.getFile(environment.dataFileID);
+    }, 6000);
 
-    // // TODO loading gif
-    // setTimeout(() => {
-    //   if (environment.token != null) {
-    //     environment.userName = this.username;
-    //     // TODO add welcome message
-    //     this.router.navigate(['/core']);
-    //   } else {
-    //     // TODO add fail message
-    //     alert('Login isn\'t correct');
-    //   }
-    // }, 6000);
-    // // TODO Quit loading gif
-
-
+    environment.dataFile = this.fileManagerService.file;
 }
   }
   skipGuess() {
-    
+
     this.loginService.getToken("anonymous", "Anonymous2019!");
   }
+
+
 
 }

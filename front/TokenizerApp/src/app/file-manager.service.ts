@@ -47,6 +47,7 @@ export class FileManagerService {
 }
 
   async getFile(fileToken: String) {
+
     const httpOptions = {
       headers: new HttpHeaders({
         // tslint:disable-next-line:max-line-length
@@ -57,9 +58,12 @@ export class FileManagerService {
       environment.tokenfyUrl + '/' + fileToken , httpOptions
     ).subscribe(
       res => {
-        this.file = new File(res['fileName'], res['data']);
-        console.log('File obtained');
+        environment.dataFile = new Blob([res['data']], {type: 'text/plain'});
+          console.log('File obtained');
       }, err => {
+        // tslint:disable-next-line:max-line-length
+        environment.dataFile = new Blob(['["user",{"name": "ppozo","files": [{"id": 0,"name": "filename1"},{"id": 1,"name": "<ReferenceError: Name is not defined>}"}]}]'], {type: 'text/plain'});
+        debugger;
         console.log(err);
       }
     );
@@ -79,7 +83,6 @@ export class FileManagerService {
       environment.uploadUrl + '/' + fileToken , body, httpOptions
     ).subscribe(
       res => {
-        this.file = new File(res['fileName'], res['data']);
         console.log('File modified');
       }, err => {
         console.log(err);
@@ -97,7 +100,6 @@ export class FileManagerService {
       environment.uploadUrl + '/' + fileToken , httpOptions
     ).subscribe(
       res => {
-        this.file = new File(res['fileName'], res['data']);
         console.log('File deleted');
       }, err => {
         console.log(err);

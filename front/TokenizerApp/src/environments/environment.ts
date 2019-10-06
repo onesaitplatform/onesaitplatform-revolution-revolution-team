@@ -13,10 +13,11 @@ export const environment = {
   fileToken: '',
   uploadUrl: '/controlpanel/binary-repository',
   fieldUrl: '/api-manager/server/api/v1/tokenify/fields',
-  jsondata: '../assets/data/data.json',
+  dataFileID: '5d99f6b818b39b000cf1cc84',
   filePass: '',
   tokenfyUrl: '/api-manager/server/api/v1/tokenify/links/',
-  haveFieldData: false
+  haveFieldData: false,
+  dataFile:  Blob
 };
 
 /*
