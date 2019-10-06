@@ -29,7 +29,7 @@ export class CoreComponent implements OnInit {
     $.getJSON( environment.dataFile.toString(), function( data ) {
         this.data = data;
     });
-    console.log( this.data );
+   // console.log( this.data );
   }
 
   handleFileInput(files: FileList) {
