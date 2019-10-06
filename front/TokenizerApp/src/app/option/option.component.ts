@@ -33,6 +33,7 @@ export class OptionComponent implements OnInit {
   //dataSource = ELEMENT_DATA;
   favoriteTk: string;
   nof : string;
+  sessionuser = sessionStorage.getItem('userName');
   tks: string[] = ['Symetric encryption', 'Asymentric encryption', 'Obfuscation'];
 
   ngOnInit() {
