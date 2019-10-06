@@ -35,6 +35,7 @@ export class OptionComponent implements OnInit {
   nof : string;
   sessionuser = sessionStorage.getItem('userName');
   tks: string[] = ['Symetric encryption', 'Asymentric encryption', 'Obfuscation'];
+  numCount = 0;
 
   ngOnInit() {
     if (sessionStorage.getItem("pg")!="1") {
@@ -42,17 +43,19 @@ export class OptionComponent implements OnInit {
         this.router.navigate(['/core']);
       } else this.router.navigate(['core']);
     }
+    this.numCount = 0;
     this.getListOfFieldsOnTable();
     this.nof = sessionStorage.getItem("nof")
   }
 
   private getListOfFieldsOnTable() {
+    this.numCount++;
     if (!environment.haveFieldData) {
       this.tokenifyService.listTokenifyFields(environment.fileToken);
       setTimeout(() => {
         if(this.tokenifyService.fieldOk){
         this.createElementData();
-        } else this.getListOfFieldsOnTable();
+        } else if (!this.tokenifyService.fieldOk && this.numCount<=3) this.getListOfFieldsOnTable();
       }, 3000);
     } 
     return ELEMENT_DATA;

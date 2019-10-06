@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { TokenifyService } from '../tokenify.service';
 import {FileManagerService} from '../file-manager.service';
 import {environment} from '../../environments/environment';
 import * as $ from 'jquery';
@@ -22,7 +23,7 @@ export class CoreComponent implements OnInit {
   pressBtn: boolean;
   sessionuser = sessionStorage.getItem('userName');
   dataSource = ELEMENT_DATA;
-  constructor(private http: HttpClient, private router: Router, public fileManagerService: FileManagerService ) {
+  constructor(private http: HttpClient, private router: Router, public fileManagerService: FileManagerService,public tokenifyService: TokenifyService ) {
     // debugger;
     // // tslint:disable-next-line:prefer-const
 
@@ -37,6 +38,7 @@ export class CoreComponent implements OnInit {
     this.fileManagerService.fileUpload = false;
     this.fileManagerService.uploadFailed = false;
     this.pressBtn = false;
+    this.tokenifyService.fieldOk = false;
   }
   onSubmit() {
       if (this.fileToUpload) this.pressBtn = true;
