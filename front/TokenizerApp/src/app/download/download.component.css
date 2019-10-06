@@ -12,7 +12,8 @@
 }
 
 .mat-card{
-    padding:4%
+    padding:4%;
+    border-radius: 25px;
 }
 
 .m2{
