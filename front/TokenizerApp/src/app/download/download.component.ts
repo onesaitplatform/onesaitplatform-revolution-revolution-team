@@ -15,11 +15,15 @@ export class DownloadComponent implements OnInit {
   private file: File;
   private filePass: string;
   constructor(private router: Router, protected fileManagerService: FileManagerService, public tokenifyService:TokenifyService ) { }
+  nof:string;
 
   ngOnInit() {
-    // this.fileManagerService.getFile(environment.fileToken);
-    // this.file = this.fileManagerService.file;
-    // this.filePass = environment.filePass;
+    if (sessionStorage.getItem("pg")!="2") {
+      if(sessionStorage.getItem("token")){
+        this.router.navigate(['/core']);
+      } else this.router.navigate(['core']);
+    }
+    this.nof = sessionStorage.getItem("nof")
   }
 
   returnTo(){

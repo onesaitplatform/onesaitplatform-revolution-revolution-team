@@ -14,6 +14,7 @@ export class TokenifyService {
   favoriteTk: string;
   se: string;
   op: string;
+  fieldOk:boolean;
 
   constructor(protected http: HttpClient) { }
 
@@ -102,7 +103,9 @@ export class TokenifyService {
     ).subscribe(
       res => {
         let resp = res['body']['results']['msg'][0]['data'];
-        this.getFields(resp)
+        this.getFields(resp);
+        this.fieldOk = true;
+
 
 
       }, err => {

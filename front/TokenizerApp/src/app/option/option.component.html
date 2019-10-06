@@ -1,7 +1,14 @@
 <div style="width: 75%; margin-top:10%; margin:0 auto;padding-top: -20%; padding-bottom: 50px;">
     <app-header></app-header>
-    <mat-card>
-        <mat-card-title class="b1 blue">name of file</mat-card-title>
+    <ngb-alert style="text-align: center" [dismissible]="false" *ngIf="sessionuser!='guest'">
+        Welcome {{sessionuser}}, how are you? We are here for you | 
+        <span style="cursor: pointer" (click)="logout()">click to logout</span>
+      </ngb-alert>
+      <ngb-alert style="text-align: center" [dismissible]="false" *ngIf="sessionuser=='guest'">
+        Welcome!, how are you? You are a guest, are you happy to be here? 
+      </ngb-alert>
+    <mat-card style="text-align: center;">
+        <mat-card-title class="b1 blue">{{nof}}</mat-card-title>
         <mat-card-title class="blue">What fields would you like to tokenize?</mat-card-title>
         <table mat-table [dataSource]="dataSource" MatTable class="mat-elevation-z8">
 
@@ -44,8 +51,8 @@
             </mat-radio-button>
         </mat-radio-group>
 
-        <button (click)="nextToD()" class="btn btn-primary m1 fr">Next</button>
-        <br>
+        <button (click)="nextToD()" style="background: rgb(26,59,71);font-size:0.8rem" class="btn btn-primary m1 fr">Next</button>
+        <br> <br> 
         <hr>
         <app-footer></app-footer>
     </mat-card>

@@ -41,6 +41,8 @@ export class LoginService {
         environment.userName =  res['name'];
         sessionStorage.setItem("token",environment.token);
         sessionStorage.setItem("userName",environment.userName);
+        sessionStorage.setItem("pg","0");
+
         this.showOK = true;
         setTimeout(() => { this.router.navigate(['/core']);this.showOK = false;},2000);
         console.log('Correct login');

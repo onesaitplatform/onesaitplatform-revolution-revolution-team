@@ -8,6 +8,7 @@ export class FileManagerService {
   env = environment;
   public file: File;
   fileUpload: boolean;
+  uploadFailed: boolean;
   namefileUploaded;
 
   constructor(protected http: HttpClient) {
@@ -39,7 +40,14 @@ export class FileManagerService {
         console.log('Correct upload file', err);
         if (err.statusText === 'Created') {
           setTimeout(() => {
+            this.uploadFailed = false;
             this.fileUpload = true;
+            sessionStorage.setItem("nof",fileToUpload.name)
+          }, 2000);
+        }
+        else if (err.statusText === 'Unauthorized') {
+          setTimeout(() => {
+            this.uploadFailed = true;
           }, 2000);
         }
       }

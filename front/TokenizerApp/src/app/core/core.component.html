@@ -1,11 +1,11 @@
 <div style="width: 75%; margin-top:10%; margin:0 auto;padding-top: -20%; padding-bottom: 50px;">
         <app-header></app-header>
-        <ngb-alert *ngIf="sessionuser!='guest'">
-            Welcome {{sessionuser}}, how are you? We are here for you! If you want,
-            <span> logout here</span>
+        <ngb-alert style="text-align: center" [dismissible]="false" *ngIf="sessionuser!='guest'">
+            Welcome {{sessionuser}}, how are you? We are here for you | 
+            <span style="cursor: pointer" (click)="logout()">click to logout</span>
           </ngb-alert>
-          <ngb-alert *ngIf="sessionuser=='guest'">
-            Welcome!, how are you? You are a guest, are you happy to be here? :)
+          <ngb-alert style="text-align: center" [dismissible]="false" *ngIf="sessionuser=='guest'">
+            Welcome!, how are you? You are a guest, are you happy to be here? 
           </ngb-alert>
         <mat-card>
             <mat-accordion>
@@ -18,20 +18,20 @@
                           Click to Show file-list
                         </mat-panel-description>
                       </mat-expansion-panel-header>
-                     Files here
+                     no files here
                     </mat-expansion-panel>
                   </mat-accordion>
                   <hr>
-        <mat-card-header class="blue">
-            <mat-card-title>What dataset do you want to tokenize today?</mat-card-title>
+        <mat-card-header class="blue row justify-content-center">
+            <mat-card-title class="col">What dataset do you want to tokenize today?</mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <div class="container">
-                <div class="row">
-                    <div class="col-md-6 offset-md-3">
-                        <h4 *ngIf="!fileManagerService.fileUpload" class="blue">Choose File</h4>
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <h5 *ngIf="!fileManagerService.fileUpload" style="text-align: center" class="blue">Choose File</h5>
                         <form  (ngSubmit)="onSubmit()">
-                            <div *ngIf="!fileManagerService.fileUpload" class="form-group">
+                            <div *ngIf="!fileManagerService.fileUpload" style="text-align: center" class="form-group">
                               <input type="file"
                               id="file"
                               (change)="handleFileInput($event.target.files)">
@@ -39,10 +39,13 @@
                             <ngb-alert *ngIf="fileManagerService.fileUpload">
                               File {{fileManagerService.namefileUploaded}} Uploaded !
                             </ngb-alert>
-                            <div class="form-group">
-                                <button *ngIf="!pressBtn" (click)="uploadFile()" class="btn btn-primary fr">Submit</button>
-                                <mat-progress-bar *ngIf="pressBtn && !fileManagerService.fileUpload"[color]="blue" mode="indeterminate"></mat-progress-bar>
-                                <button (click)="nextToList()"  *ngIf="pressBtn" class="btn btn-primary m1 fr">Next</button>
+                            <div class="form-group row justify-content-center">
+                                <button *ngIf="!pressBtn" style="background: rgb(26,59,71);font-size:0.8rem" (click)="uploadFile()" class="btn btn-primary fr">Submit</button>
+                                <mat-progress-bar *ngIf="pressBtn && !fileManagerService.fileUpload && !fileManagerService.uploadFailed"[color]="blue" mode="indeterminate"></mat-progress-bar>
+                                <ngb-alert [dismissible]="false" *ngIf="fileManagerService.uploadFailed">
+                                  Error! Upload new file
+                                </ngb-alert>
+                                <button (click)="nextToList()" style="background: rgb(26,59,71);font-size:0.8rem"  *ngIf="pressBtn && fileManagerService.fileUpload" class="btn btn-primary m1 fr">Next</button>
                             </div>
                         </form>
                     </div>

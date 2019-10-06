@@ -32,24 +32,34 @@ export class OptionComponent implements OnInit {
   // TODO quit when work
   //dataSource = ELEMENT_DATA;
   favoriteTk: string;
+  nof : string;
   tks: string[] = ['Symetric encryption', 'Asymentric encryption', 'Obfuscation'];
 
   ngOnInit() {
+    if (sessionStorage.getItem("pg")!="1") {
+      if(sessionStorage.getItem("token")){
+        this.router.navigate(['/core']);
+      } else this.router.navigate(['core']);
+    }
     this.getListOfFieldsOnTable();
+    this.nof = sessionStorage.getItem("nof")
   }
 
   private getListOfFieldsOnTable() {
     if (!environment.haveFieldData) {
       this.tokenifyService.listTokenifyFields(environment.fileToken);
       setTimeout(() => {
+        if(this.tokenifyService.fieldOk){
         this.createElementData();
-      }, 1000);
-    }
+        } else this.getListOfFieldsOnTable();
+      }, 3000);
+    } 
     return ELEMENT_DATA;
   }
 
   nextToD() {
     this.tokenifyService.putTokenifyLinks(environment.fileToken, this.values, this.favoriteTk);
+    sessionStorage.setItem("pg","2");
     this.router.navigate(['/download']);
   }
 
@@ -81,5 +91,9 @@ export class OptionComponent implements OnInit {
 
     console.log("values",this.values);
     this.tokenifyService.value = JSON.stringify(this.values)
+  }
+
+  logout() {
+    this.router.navigate(['/']);
   }
 }

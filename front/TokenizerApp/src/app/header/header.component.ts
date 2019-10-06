@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import {FileManagerService} from '../file-manager.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, public fileManagerService: FileManagerService ) { }
 
   ngOnInit() {
+  }
+
+  ght(){
+    if (sessionStorage.getItem("pg")!="0") {
+      if(sessionStorage.getItem("token")){
+        this.router.navigate(['/core']);
+        this.fileManagerService.fileUpload = false;
+        this.fileManagerService.uploadFailed = false;
+      } else this.router.navigate(['core']);
+    }
   }
 
 }

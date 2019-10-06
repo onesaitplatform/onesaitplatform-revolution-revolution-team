@@ -14,7 +14,6 @@
 
 .mat-card-title{
     font-size: 1.7vw;
-    font-weight: bold;
 }
 
 .login-button {
@@ -30,7 +29,7 @@
 }
 
 .blue {
-    color:#2e75b5
+color:rgb(26,59,71)
 }
 
 .mat-progress-bar {
@@ -40,7 +39,7 @@
 .mat-expansion-panel {
     border-radius: 25px!important;
     margin: 2.2%!important;
-    background: #2e75b5;
+    background: rgb(26,59,71);
 }
 
 .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
@@ -58,3 +57,5 @@
 .fr{
     float:right
 }
+
+.mat-expansion-indicator:after{color:white!important}

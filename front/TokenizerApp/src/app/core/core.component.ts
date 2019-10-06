@@ -34,9 +34,12 @@ export class CoreComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
+    this.fileManagerService.fileUpload = false;
+    this.fileManagerService.uploadFailed = false;
+    this.pressBtn = false;
   }
   onSubmit() {
-      this.pressBtn = true;
+      if (this.fileToUpload) this.pressBtn = true;
       const formData = new FormData();
       environment.fileToken = null;
       this.fileManagerService.postFile(this.fileToUpload);
@@ -57,12 +60,24 @@ export class CoreComponent implements OnInit {
   }
 
   nextToList() {
+    sessionStorage.setItem("pg","1");
     this.router.navigate(['/option']);
   }
 
   ngOnInit() {
+    if (sessionStorage.getItem("pg")!="0") {
+      if(sessionStorage.getItem("token")){
+        this.router.navigate(['/core']);
+        this.fileManagerService.fileUpload = false;
+        this.fileManagerService.uploadFailed = false;
+      } else this.router.navigate(['core']);
+    }
   }
 
   uploadFile() {
+  }
+
+  logout() {
+    this.router.navigate(['/']);
   }
 }
