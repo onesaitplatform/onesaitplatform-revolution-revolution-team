@@ -23,12 +23,12 @@ export class CoreComponent implements OnInit {
   sessionuser = sessionStorage.getItem('userName');
   dataSource = ELEMENT_DATA;
   constructor(private http: HttpClient, private router: Router, public fileManagerService: FileManagerService ) {
-    debugger;
-    // tslint:disable-next-line:prefer-const
+    // debugger;
+    // // tslint:disable-next-line:prefer-const
 
-    $.getJSON( environment.dataFile.toString(), function( data ) {
-        this.data = data;
-    });
+    // $.getJSON( environment.dataFile.toString(), function( data ) {
+    //     this.data = data;
+    // });
    // console.log( this.data );
   }
 

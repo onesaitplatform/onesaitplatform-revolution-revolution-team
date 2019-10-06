@@ -33,11 +33,11 @@ export class LoginComponent implements OnInit {
     this.submitLogin = true;
     if (this.username && this.psw) {
     this.loginService.getToken(this.username, this.psw);
-    setTimeout(() => {
-      this.fileManagerService.getFile(environment.dataFileID);
-    }, 6000);
+    // setTimeout(() => {
+    //   this.fileManagerService.getFile(environment.dataFileID);
+    // }, 6000);
 
-    environment.dataFile = this.fileManagerService.file;
+    // environment.dataFile = this.fileManagerService.file;
 }
   }
   skipGuess() {

@@ -46,29 +46,29 @@ export class FileManagerService {
     );
 }
 
-  async getFile(fileToken: String) {
+  // async getFile(fileToken: String) {
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        // tslint:disable-next-line:max-line-length
-        'Authorization': 'Bearer ' + environment.token
-      })
-    };
-    await this.http.get(
-      environment.tokenfyUrl + '/' + fileToken , httpOptions
-    ).subscribe(
-      res => {
-        environment.dataFile = new Blob([res['data']], {type: 'text/plain'});
-          console.log('File obtained');
-      }, err => {
-        // tslint:disable-next-line:max-line-length
-        environment.dataFile = new Blob(['["user",{"name": "ppozo","files": [{"id": 0,"name": "filename1"},{"id": 1,"name": "<ReferenceError: Name is not defined>}"}]}]'], {type: 'text/plain'});
-        debugger;
-        console.log(err);
-      }
-    );
-    return this.file;
-  }
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       // tslint:disable-next-line:max-line-length
+  //       'Authorization': 'Bearer ' + environment.token
+  //     })
+  //   };
+  //   await this.http.get(
+  //     environment.tokenfyUrl + '/' + fileToken , httpOptions
+  //   ).subscribe(
+  //     res => {
+  //       environment.dataFile = new Blob([res['data']], {type: 'text/plain'});
+  //         console.log('File obtained');
+  //     }, err => {
+  //       // tslint:disable-next-line:max-line-length
+  //       environment.dataFile = new Blob(['["user",{"name": "ppozo","files": [{"id": 0,"name": "filename1"},{"id": 1,"name": "<ReferenceError: Name is not defined>}"}]}]'], {type: 'text/plain'});
+  //       debugger;
+  //       console.log(err);
+  //     }
+  //   );
+  //   return this.file;
+  // }
 
   async modifyFile(fileToken: String, fileUpadted: File) {
     const httpOptions = {
