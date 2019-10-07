@@ -3,6 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 import {PeriodicElement} from '../app/option/option.component';
+export interface FileElement {
+  fileId: string;
+  name: string;
+}
+
+let FILE_ELEMENT_DATA: FileElement[] = [];
 
 export const environment = {
   production: false,
@@ -17,7 +23,8 @@ export const environment = {
   filePass: '',
   tokenfyUrl: '/api-manager/server/api/v1/tokenify/links/',
   haveFieldData: false,
-  dataFile:  Blob
+  dataFile:  Blob,
+  FILE_ELEMENT_DATA: FILE_ELEMENT_DATA
 };
 
 /*

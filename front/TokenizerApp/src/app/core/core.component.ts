@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TokenifyService } from '../tokenify.service';
 import {FileManagerService} from '../file-manager.service';
 import {environment} from '../../environments/environment';
-import * as $ from 'jquery';
+import {MatTable} from '@angular/material';
+import {PeriodicElement} from '../option/option.component';
 
 export interface FileElement {
-  id: string;
+  id: number;
+  fileId: string;
   name: string;
 }
 
-const ELEMENT_DATA: FileElement[] = [];
+
 @Component({
   selector: 'app-core',
   templateUrl: './core.component.html',
@@ -22,15 +24,12 @@ export class CoreComponent implements OnInit {
   fileToUpload:  File;
   pressBtn: boolean;
   sessionuser = sessionStorage.getItem('userName');
-  dataSource = ELEMENT_DATA;
-  constructor(private http: HttpClient, private router: Router, public fileManagerService: FileManagerService,public tokenifyService: TokenifyService ) {
-    // debugger;
-    // // tslint:disable-next-line:prefer-const
+  dataSource = environment.FILE_ELEMENT_DATA;
 
-    // $.getJSON( environment.dataFile.toString(), function( data ) {
-    //     this.data = data;
-    // });
-   // console.log( this.data );
+  @ViewChild(MatTable, null) table: MatTable<PeriodicElement[]>;
+  displayedColumns: string[] = ['fileName'];
+
+  constructor(private http: HttpClient, private router: Router, public fileManagerService: FileManagerService,public tokenifyService: TokenifyService ) {
   }
 
   handleFileInput(files: FileList) {
@@ -45,20 +44,10 @@ export class CoreComponent implements OnInit {
       const formData = new FormData();
       environment.fileToken = null;
       this.fileManagerService.postFile(this.fileToUpload);
-      // TODO loading gif
-      // setTimeout(() => {
-      //   if ( environment.fileToken != null) {
-      //     // TODO add correct upload message
-      //     alert('correct');
-      //     this.router.navigate(['/option']);
-      //   } else {
-      //     // TODO quit... fail message
-      //     environment.fileToken = '5d94a4a918b39b000cf1bfd6';
-      //     this.router.navigate(['/option']);
-      //     alert('Login isn\'t correct');
-      //   }
-      // }, 60000);
-      // TODO Quit loading gif
+      setTimeout(() => {
+        environment.FILE_ELEMENT_DATA.push({fileId: '' + (environment.FILE_ELEMENT_DATA.length + 1) , name: this.fileToUpload.name });
+        this.table.renderRows();
+      }, 60000);
   }
 
   nextToList() {
