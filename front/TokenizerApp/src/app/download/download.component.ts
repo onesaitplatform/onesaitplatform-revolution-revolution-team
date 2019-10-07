@@ -31,12 +31,18 @@ export class DownloadComponent implements OnInit {
   }
 
   getTokenOnWindow() {
-    window.open(this.tokenifyService.se); 
+    if (!this.tokenifyService.se.includes("id")){
+    window.open(this.tokenifyService.se)
+    } else {
     window.open(this.tokenifyService.se1); 
+    }
   }
 
   downloadFile() {
-    window.open(this.tokenifyService.op); 
-    window.open(this.tokenifyService.op1); 
+    if (!this.tokenifyService.op.includes("id")){
+      window.open(this.tokenifyService.op)
+      } else {
+      window.open(this.tokenifyService.op1); 
+      }
   }
 }

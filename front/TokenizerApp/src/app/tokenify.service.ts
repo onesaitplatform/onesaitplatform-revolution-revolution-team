@@ -152,7 +152,7 @@ export class TokenifyService {
     let jsonF = JSON.stringify(resp);
     this.se = jsonF.substring(
       jsonF.lastIndexOf("'secret': '") + 11,
-      jsonF.lastIndexOf("', '")
+      jsonF.lastIndexOf("'id")-3
     );
 
     this.op = jsonF.substring(
@@ -170,9 +170,11 @@ export class TokenifyService {
       jsonF.lastIndexOf("', '")
     );
 
-    console.log("jsonF", jsonF)
-    console.log("secret", this.se)
-    console.log("op", this.op)
+    console.log("jsonF", jsonF);
+    console.log("secret", this.se);
+    console.log("op", this.op);
+    console.log("secret1", this.se1);
+    console.log("op1", this.op1);
 
   }
 
