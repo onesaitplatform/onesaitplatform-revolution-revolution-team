@@ -47,7 +47,7 @@ export class TokenifyService {
 
     let bodyp = {};
     let body = {};
-    bodyp['user'] = 'anonymous';
+    bodyp['user'] = environment.userName;
     bodyp['USER_TOKEN'] = 'Bearer ' + environment.token;
     bodyp['file_id'] = idFile;
     bodyp['method'] = method;
@@ -80,7 +80,7 @@ export class TokenifyService {
 
     const bodys = {
       params: {
-        user: 'anonymous',
+        user: environment.userName,
         USER_TOKEN: 'Bearer ' + environment.token,
         file_id: idFile
       }
@@ -90,7 +90,7 @@ export class TokenifyService {
 
     let bodyp = {};
     let body = {};
-    bodyp['user'] = 'anonymous';
+    bodyp['user'] = environment.userName;
     bodyp['USER_TOKEN'] = 'Bearer ' + environment.token;
     bodyp['file_id'] = idFile;
     bodyp['separator'] = ",";
