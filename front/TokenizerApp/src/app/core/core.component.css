@@ -1,4 +1,4 @@
-.mat-card{border-radius: 25px;}
+.mat-card{border-radius: 4px;}
 
 
   .mat-card-image {
@@ -59,3 +59,10 @@ color:rgb(26,59,71)
 }
 
 .mat-expansion-indicator:after{color:white!important}
+
+* {
+  font-family: 'Titillium Web', sans-serif !important;
+}
+.mat-card {
+  font-family: 'Titillium Web', sans-serif !important;
+}

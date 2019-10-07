@@ -34,7 +34,14 @@ table {
     flex-direction: column;
     margin: 15px 0;
   }
-  
+
   .radio-button {
     margin: 5px;
   }
+
+* {
+  font-family: 'Titillium Web', sans-serif !important;
+}
+.mat-card {
+  font-family: 'Titillium Web', sans-serif !important;
+}

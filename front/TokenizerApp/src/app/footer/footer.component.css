@@ -13,3 +13,10 @@
     margin: 0 -16px 16px -16px;
     margin-left: 5%;
 }
+
+* {
+  font-family: 'Titillium Web', sans-serif !important;
+}
+.mat-card {
+  font-family: 'Titillium Web', sans-serif !important;
+}
