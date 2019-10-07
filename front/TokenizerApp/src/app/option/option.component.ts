@@ -34,7 +34,7 @@ export class OptionComponent implements OnInit {
   favoriteTk: string;
   nof : string;
   sessionuser = sessionStorage.getItem('userName');
-  tks: string[] = ['Symetric encryption', 'Asymentric encryption', 'Obfuscation'];
+  tks: string[] = ['Format-preserving encryption (FPE)', 'AES Encrpytion (AES)', 'Random map (MAP)'];
   numCount = 0;
 
   ngOnInit() {
@@ -74,7 +74,7 @@ export class OptionComponent implements OnInit {
     let i = 0;
     var valuess = new Array(this.tokenifyService.fields.length);
     this.tokenifyService.fields.forEach(function (field) {
-      valuess[i] = '0';
+      valuess[i] = 0;
       ELEMENT_DATA[i] = { fieldName: i, name: field, weight: 1 };
       console.log(field);
       i++;
@@ -89,14 +89,14 @@ export class OptionComponent implements OnInit {
 
   fieldChangeAction(fieldName: any) {
     console.log ("fieldName",fieldName)
-    if (this.values[fieldName] === 0) {
+    if (this.values[fieldName] == 0) {
       this.values[fieldName] = 1;
     } else {
       this.values[fieldName] = 0;
     }
 
     console.log("values",this.values);
-    this.tokenifyService.value = JSON.stringify(this.values);
+    this.tokenifyService.value = this.values;
   }
 
   logout() {

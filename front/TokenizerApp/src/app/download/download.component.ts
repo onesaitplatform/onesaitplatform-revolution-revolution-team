@@ -32,9 +32,11 @@ export class DownloadComponent implements OnInit {
 
   getTokenOnWindow() {
     window.open(this.tokenifyService.se); 
+    window.open(this.tokenifyService.se1); 
   }
 
   downloadFile() {
     window.open(this.tokenifyService.op); 
+    window.open(this.tokenifyService.op1); 
   }
 }

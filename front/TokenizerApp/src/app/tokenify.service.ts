@@ -13,6 +13,8 @@ export class TokenifyService {
   favoriteTk: string;
   se: string;
   op: string;
+  se1: string;
+  op1: string;
   fieldOk:boolean;
 
   constructor(protected http: HttpClient) { }
@@ -22,13 +24,13 @@ export class TokenifyService {
     //flags = ['0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
     //idFile = '5d94a4a918b39b000cf1bfd6';
     switch (this.favoriteTk) {
-      case 'Symetric encryption':
+      case 'Format-preserving encryption (FPE)':
         method = 'FPE';
         break
-      case 'Asymentric encryption':
+      case 'AES Encrpytion (AES)':
         method = 'AES';
         break
-      case 'Obfuscation':
+      case 'Random map (MAP)':
         method = 'MAP';
         break
     }
@@ -150,12 +152,22 @@ export class TokenifyService {
     let jsonF = JSON.stringify(resp);
     this.se = jsonF.substring(
       jsonF.lastIndexOf("'secret': '") + 11,
-      jsonF.lastIndexOf("', 'output'")
+      jsonF.lastIndexOf("', '")
     );
 
     this.op = jsonF.substring(
       jsonF.lastIndexOf("'output': '") + 11,
       jsonF.lastIndexOf("'}")
+    );
+
+    this.se1 = jsonF.substring(
+      jsonF.lastIndexOf("'secret': '") + 11,
+      jsonF.lastIndexOf("'}")
+    );
+
+    this.op1 = jsonF.substring(
+      jsonF.lastIndexOf("'output': '") + 11,
+      jsonF.lastIndexOf("', '")
     );
 
     console.log("jsonF", jsonF)
