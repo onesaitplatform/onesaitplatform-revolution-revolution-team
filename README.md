@@ -29,8 +29,8 @@ We are sure that we have a unique offer in the market based on a combination of 
 ## How to build the app and deploy it on server?
 <p>
   1. This application front is made with Angular material so you need to have Node.js installed in your computer. <br />
-  2. Download this repostory.  <br />
-  3. With terminal go where you have this project.<br />
+  2. Download this repostory. ->  <br />
+  3. With terminal go where you have this project(front/TokenizerApp).<br />
   4. npm install <br />
   5. To run localy: ng serve --proxy-config proxy.conf.json <br />
   6. to generate war: ng build  --base-href ./ --prod (generate the folder dist) and then deploy it on server <br />
