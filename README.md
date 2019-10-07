@@ -1,16 +1,19 @@
 <p align="center">
-  <a src='https://www.onesaitplatform.com/'>
-    <img src='resources/header.png'/>
+  <a src='https://lab.onesaitplatform.com/web/tokenify/'>
+    <img src='https://github.com/onesaitplatform/onesaitplatform-revolution-revolution-team/blob/master/resources/header.PNG'/>
   </a>
 </p>
  
-## Descricion 
+## Description 
 <p align="center">
-
-Tokenify is a utility aimed at making it easier for Data Scientists to work with datasets that contain sensitive information. It allows selecting the fields considered sensitive and their subsequent transformation into tokenized values, keeping the rest of the fields unchanged. In this way it is possible to safely use real data, instead of having to resort to synthetic data or non-representative samples.
+Tokenify is a utility aimed at making it easier for Data Scientists to work with datasets that contain sensitive information. 
+It allows selecting the fields considered sensitive and their subsequent transformation into tokenized values, keeping the rest of the fields unchanged. 
+In this way it is possible to safely use real data, instead of having to resort to synthetic data or non-representative samples.
 </p>
 <p align="center">
-The objective of the proposal presented aims to provide business functionality both to users belonging to the community already familiar with platform capabilities, and to external users in order to broaden the platform user base. It is not intended that the work has the reach of a mere demonstrator without real utility, nor in technical functionalities that do not add value to the end users.
+The objective of the proposal presented aims to provide business functionality both to users belonging to the community already familiar with platform capabilities,
+and to external users in order to broaden the platform user base.
+It is not intended that the work has the reach of a mere demonstrator without real utility, nor in technical functionalities that do not add value to the end users.
 </p>
 
 ## How?
