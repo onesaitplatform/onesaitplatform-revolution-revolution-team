@@ -57,7 +57,7 @@ export class OptionComponent implements OnInit {
         this.createElementData();
         } else if (!this.tokenifyService.fieldOk && this.numCount<=3) this.getListOfFieldsOnTable();
       }, 3000);
-    } 
+    }
     return ELEMENT_DATA;
   }
 
@@ -89,12 +89,14 @@ export class OptionComponent implements OnInit {
 
   fieldChangeAction(fieldName: any) {
     console.log ("fieldName",fieldName)
-    if (this.values[fieldName] == "0"){
-      this.values[fieldName] = "1"
-    } else this.values[fieldName] = "0"
+    if (this.values[fieldName] === 0) {
+      this.values[fieldName] = 1;
+    } else {
+      this.values[fieldName] = 0;
+    }
 
     console.log("values",this.values);
-    this.tokenifyService.value = JSON.stringify(this.values)
+    this.tokenifyService.value = JSON.stringify(this.values);
   }
 
   logout() {

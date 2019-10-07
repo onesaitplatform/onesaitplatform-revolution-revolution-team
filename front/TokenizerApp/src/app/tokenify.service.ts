@@ -17,7 +17,7 @@ export class TokenifyService {
 
   constructor(protected http: HttpClient) { }
 
-  async putTokenifyLinks(idFile: string, flags: string[], method: string) {
+  async putTokenifyLinks(idFile: string, flags: bigint[], method: string) {
     // TODO quit with real values
     //flags = ['0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
     //idFile = '5d94a4a918b39b000cf1bfd6';
