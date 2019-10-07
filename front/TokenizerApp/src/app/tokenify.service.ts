@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { PeriodicElement } from './option/option.component';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +46,7 @@ export class TokenifyService {
 
     let bodyp = {};
     let body = {};
-    bodyp['user'] = 'anonymous';
+    bodyp['user'] = environment.userName;
     bodyp['USER_TOKEN'] = 'Bearer ' + environment.token;
     bodyp['file_id'] = idFile;
     bodyp['method'] = method;
@@ -80,24 +79,22 @@ export class TokenifyService {
 
     const bodys = {
       params: {
-        user: 'anonymous',
+        user: environment.userName,
         USER_TOKEN: 'Bearer ' + environment.token,
         file_id: idFile
       }
     }
 
-    
-
     let bodyp = {};
     let body = {};
-    bodyp['user'] = 'anonymous';
+    bodyp['user'] = environment.userName;
     bodyp['USER_TOKEN'] = 'Bearer ' + environment.token;
     bodyp['file_id'] = idFile;
     bodyp['separator'] = ",";
     body['params'] = bodyp;
-    
 
- 
+
+
     await this.http.post(
       environment.fieldUrl, body, httpOptions
     ).subscribe(
@@ -105,11 +102,8 @@ export class TokenifyService {
         let resp = res['body']['results']['msg'][0]['data'];
         this.getFields(resp);
         this.fieldOk = true;
-
-
-
       }, err => {
-
+        console.log(err);
       }
     );
 
@@ -117,10 +111,6 @@ export class TokenifyService {
   }
 
   private getFields(resp) {
-    // res = res.replace('\\n(True, \'{\\message\\:"Disconnected"}\')\n', ' ');
-    // res = res.match('\'fields\':(.*)');
-    // this.fields = res[1].split(',');
-    // console.log("fields",this.fields)
 
     let jsonF = JSON.stringify(resp);
     jsonF = jsonF.substring(jsonF.indexOf("'fields': "), jsonF.indexOf('}'));
@@ -131,7 +121,7 @@ export class TokenifyService {
     jsonF = jsonF.replace("[", "").replace("]", "")
 
     this.fields = jsonF.split(',');
-    console.log("body", this.fields)
+    console.log("body", this.fields);
 
   }
 
