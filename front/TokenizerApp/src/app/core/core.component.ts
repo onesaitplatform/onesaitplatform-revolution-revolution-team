@@ -8,7 +8,6 @@ import {MatTable} from '@angular/material';
 import {PeriodicElement} from '../option/option.component';
 
 export interface FileElement {
-  id: number;
   fileId: string;
   name: string;
 }
@@ -24,13 +23,16 @@ export class CoreComponent implements OnInit {
   fileToUpload:  File;
   pressBtn: boolean;
   sessionuser = sessionStorage.getItem('userName');
-  dataSource = environment.FILE_ELEMENT_DATA;
+  FILE_ELEMENT_DATA: FileElement[] = [];
+  
 
   @ViewChild(MatTable, null) table: MatTable<PeriodicElement[]>;
   displayedColumns: string[] = ['fileName'];
 
   constructor(private http: HttpClient, private router: Router, public fileManagerService: FileManagerService,public tokenifyService: TokenifyService ) {
   }
+
+  dataSource = this.FILE_ELEMENT_DATA;
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
@@ -45,7 +47,7 @@ export class CoreComponent implements OnInit {
       environment.fileToken = null;
       this.fileManagerService.postFile(this.fileToUpload);
       setTimeout(() => {
-        environment.FILE_ELEMENT_DATA.push({fileId: '' + (environment.FILE_ELEMENT_DATA.length + 1) , name: this.fileToUpload.name });
+        this.FILE_ELEMENT_DATA.push({fileId: '' + (this.FILE_ELEMENT_DATA.length + 1) , name: this.fileToUpload.name });
         this.table.renderRows();
       }, 60000);
   }

@@ -8,7 +8,7 @@ export interface FileElement {
   name: string;
 }
 
-let FILE_ELEMENT_DATA: FileElement[] = [];
+
 
 export const environment = {
   production: false,
@@ -23,8 +23,7 @@ export const environment = {
   filePass: '',
   tokenfyUrl: '/api-manager/server/api/v1/tokenify/links/',
   haveFieldData: false,
-  dataFile:  Blob,
-  FILE_ELEMENT_DATA: FILE_ELEMENT_DATA
+  dataFile:  Blob
 };
 
 /*
