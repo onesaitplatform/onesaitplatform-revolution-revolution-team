@@ -5,9 +5,9 @@
         <mat-card-title class="blue">Download your tokenized dataset</mat-card-title>
         <mat-card-title class="b1 blue">Please share your experience to display the download button</mat-card-title>
         <div class="m2" style="margin-bottom:1%">
-            <img style="width: 4%;margin:1%" src="./assets/img/fb.png" alt="logo">
-            <img style="width: 4%;margin:1%" src="./assets/img/ig.png" alt="logo">
-            <img style="width: 4%;margin:1%" src="./assets/img/tw.png" alt="logo">
+            <img style="width: 4%;margin:1%" src="./assets/img/fb.png" (click)="goTo('https://www.facebook.com/')" alt="logo">
+            <img style="width: 4%;margin:1%" src="./assets/img/ig.png" (click)="goTo('https://www.instagram.com/')" alt="logo">
+            <img style="width: 4%;margin:1%" src="./assets/img/tw.png" (click)="goTo('https://twitter.com/')" alt="logo">
         </div>
 
         <ngb-alert [dismissible]="false" *ngIf="!tokenifyService.se || !tokenifyService.op">

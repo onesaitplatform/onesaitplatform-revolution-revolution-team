@@ -34,15 +34,19 @@ export class DownloadComponent implements OnInit {
     if (!this.tokenifyService.se.includes("id")){
     window.open(this.tokenifyService.se)
     } else {
-    window.open(this.tokenifyService.se1); 
+    window.open(this.tokenifyService.se1);
     }
   }
 
   downloadFile() {
-    if (!this.tokenifyService.op.includes("id")){
+    if (!this.tokenifyService.op.includes("id")) {
       window.open(this.tokenifyService.op)
-      } else {
-      window.open(this.tokenifyService.op1); 
-      }
+    } else {
+      window.open(this.tokenifyService.op1);
+     }
+  }
+
+  goTo(url: string) {
+    window.open(url);
   }
 }
