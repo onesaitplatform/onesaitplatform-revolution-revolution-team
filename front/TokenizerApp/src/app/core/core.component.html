@@ -41,7 +41,7 @@
                               (change)="handleFileInput($event.target.files)">
                             </div>
                             <ngb-alert *ngIf="fileManagerService.fileUpload">
-                              File {{fileManagerService.namefileUploaded}} Uploaded !
+                              File {{fileManagerService.nameFileUploaded}} Uploaded !
                             </ngb-alert>
                             <div class="form-group row justify-content-center">
                                 <button *ngIf="!pressBtn" style="background: rgb(26,59,71);font-size:0.8rem" (click)="uploadFile()" class="btn btn-primary fr">Submit</button>

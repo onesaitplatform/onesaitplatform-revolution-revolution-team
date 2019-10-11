@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../environments/environment';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,24 +15,22 @@ export class TokenifyService {
   op: string;
   se1: string;
   op1: string;
-  fieldOk:boolean;
+  fieldOk: boolean;
 
-  constructor(protected http: HttpClient) { }
+  constructor(protected http: HttpClient) {
+  }
 
   async putTokenifyLinks(idFile: string, flags: bigint[], method: string) {
-    // TODO quit with real values
-    //flags = ['0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
-    //idFile = '5d94a4a918b39b000cf1bfd6';
     switch (this.favoriteTk) {
       case 'Format-preserving encryption (FPE)':
         method = 'FPE';
-        break
+        break;
       case 'AES Encrpytion (AES)':
         method = 'AES';
-        break
+        break;
       case 'Random map (MAP)':
         method = 'MAP';
-        break
+        break;
     }
     const httpOptions = {
       headers: new HttpHeaders({
@@ -41,10 +39,6 @@ export class TokenifyService {
         'Accept': '*/*'
       })
     };
-    // const body = new FormData();
-    // body.append('params',
-    //   '"USER_TOKEN": "Bearer "' + environment.token + ',"file_id": "' + idFile + '",' +
-    //   '"user": "anonymous","method": "' + method + '","flags": ' + flags);
 
     let bodyp = {};
     let body = {};
@@ -85,16 +79,15 @@ export class TokenifyService {
         USER_TOKEN: 'Bearer ' + environment.token,
         file_id: idFile
       }
-    }
+    };
 
     let bodyp = {};
     let body = {};
     bodyp['user'] = environment.userName;
     bodyp['USER_TOKEN'] = 'Bearer ' + environment.token;
     bodyp['file_id'] = idFile;
-    bodyp['separator'] = ",";
+    bodyp['separator'] = ',';
     body['params'] = bodyp;
-
 
 
     await this.http.post(
@@ -115,67 +108,55 @@ export class TokenifyService {
   private getFields(resp) {
 
     let jsonF = JSON.stringify(resp);
-    jsonF = jsonF.substring(jsonF.indexOf("'fields': "), jsonF.indexOf('}'));
-    jsonF = jsonF.substring(jsonF.indexOf("["));
+    jsonF = jsonF.substring(jsonF.indexOf('\'fields\': '), jsonF.indexOf('}'));
+    jsonF = jsonF.substring(jsonF.indexOf('['));
     jsonF = jsonF.replace(/'/g, '');
     jsonF = jsonF.replace(/ /g, '');
-    jsonF = jsonF.replace("\\n", "");
-    jsonF = jsonF.replace("[", "").replace("]", "")
+    jsonF = jsonF.replace('\\n', '');
+    jsonF = jsonF.replace('[', '').replace(']', '');
 
     this.fields = jsonF.split(',');
-    console.log("body", this.fields);
+    console.log('body', this.fields);
 
   }
 
-  // private getLinkSec(resp) {
-  //   // res = res.replace('\\n(True, \'{\\message\\:"Disconnected"}\')\n', ' ');
-  //   // res = res.match('\'fields\':(.*)');
-  //   // this.fields = res[1].split(',');
-  //   // console.log("fields",this.fields)
-
-  //   let jsonF = JSON.stringify(resp);
-  //   jsonF = jsonF.substring(jsonF.indexOf("'secret': "), jsonF.indexOf('}'));
-  //   jsonF = jsonF.substring(jsonF.indexOf("["));
-  //   jsonF = jsonF.replace(/'/g, '');
-  //   jsonF = jsonF.replace(/ /g, '');
-  //   jsonF = jsonF.replace("\\n", "");
-  //   jsonF = jsonF.replace("[", "").replace("]", "")
-
-  //   this.fields = jsonF.split(',');
-  //   console.log("body", this.fields)
-
-  // }
-
   private getLinkOut(resp) {
 
+    var data = this.cleanResponse(resp);
 
-    let jsonF = JSON.stringify(resp);
-    this.se = jsonF.substring(
-      jsonF.lastIndexOf("'secret': '") + 11,
-      jsonF.lastIndexOf("'id")-3
-    );
+    this.getSecret(data);
 
-    this.op = jsonF.substring(
-      jsonF.lastIndexOf("'output': '") + 11,
-      jsonF.lastIndexOf("'}")
-    );
+    this.getOutput(data);
+  }
 
-    this.se1 = jsonF.substring(
-      jsonF.lastIndexOf("'secret': '") + 11,
-      jsonF.lastIndexOf("'}")
-    );
+  private getOutput(data) {
+    var output = data.split(',')[2];
+    output = output.replace('\'output\': ', '');
+    output = output.replace('\'', '');
+    output = output.replace('\'', '');
+    output = output.replace(' ', '');
+    output = output.replace(' ', '');
+    console.log(output);
+    this.op = output;
+    this.op1 = output;
+  }
 
-    this.op1 = jsonF.substring(
-      jsonF.lastIndexOf("'output': '") + 11,
-      jsonF.lastIndexOf("', '")
-    );
+  private getSecret(data) {
+    var secret = data.split(',');
+    secret = secret[0].replace('secret\': \'', '');
+    secret = secret.replace('\'', '');
+    this.se = secret;
+    this.se1 = secret;
+    console.log(secret);
+  }
 
-    console.log("jsonF", jsonF);
-    console.log("secret", this.se);
-    console.log("op", this.op);
-    console.log("secret1", this.se1);
-    console.log("op1", this.op1);
-
+  cleanResponse(dataComplete: string) {
+    var data = dataComplete.replace('\n(True, \'{"message":"Disconnected"}\')\n', ' ');
+    data = data.replace('\'', '');
+    data = data.replace('Info - IotBrokerClient will be soon deprecated, please use DigitalClient instead\n', '');
+    data = data.replace('{', '');
+    data = data.replace('}', '');
+    return data;
   }
 
 

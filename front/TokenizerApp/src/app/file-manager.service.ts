@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from '../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +10,7 @@ export class FileManagerService {
   public file: File;
   fileUpload: boolean;
   uploadFailed: boolean;
-  namefileUploaded;
+  nameFileUploaded;
 
   constructor(protected http: HttpClient) {
     this.fileUpload = false;
@@ -19,21 +20,20 @@ export class FileManagerService {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        // tslint:disable-next-line:max-line-length
         'Authorization': 'Bearer ' + environment.token
       })
     };
 
     const endpoint = environment.uploadUrl;
     const formData: FormData = new FormData();
-    this.namefileUploaded = fileToUpload.name;
+    this.nameFileUploaded = fileToUpload.name;
     formData.append('file', fileToUpload, fileToUpload.name);
     this.http.post(
-      environment.uploadUrl , formData , httpOptions
+      environment.uploadUrl, formData, httpOptions
     ).subscribe(
       res => {
-        environment.fileToken =  res.toString();
-        console.log('Correct upload file',  res);
+        environment.fileToken = res.toString();
+        console.log('Correct upload file', res);
 
       }, err => {
         environment.fileToken = err.error.text;
@@ -42,42 +42,17 @@ export class FileManagerService {
           setTimeout(() => {
             this.uploadFailed = false;
             this.fileUpload = true;
-            sessionStorage.setItem("nof",fileToUpload.name)
+            sessionStorage.setItem('nof', fileToUpload.name);
           }, 2000);
-        }
-        else if (err.statusText === 'Unauthorized') {
+        } else if (err.statusText === 'Unauthorized') {
           setTimeout(() => {
             this.uploadFailed = true;
           }, 2000);
         }
       }
     );
-}
-
-  // async getFile(fileToken: String) {
-
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       // tslint:disable-next-line:max-line-length
-  //       'Authorization': 'Bearer ' + environment.token
-  //     })
-  //   };
-  //   await this.http.get(
-  //     environment.tokenfyUrl + '/' + fileToken , httpOptions
-  //   ).subscribe(
-  //     res => {
-  //       environment.dataFile = new Blob([res['data']], {type: 'text/plain'});
-  //         console.log('File obtained');
-  //     }, err => {
-  //       // tslint:disable-next-line:max-line-length
-  //       environment.dataFile = new Blob(['["user",{"name": "ppozo","files": [{"id": 0,"name": "filename1"},{"id": 1,"name": "<ReferenceError: Name is not defined>}"}]}]'], {type: 'text/plain'});
-  //       debugger;
-  //       console.log(err);
-  //     }
-  //   );
-  //   return this.file;
-  // }
-
+  }
+  // NOTE:  We leave these services, because they can be used in the future
   async modifyFile(fileToken: String, fileUpadted: File) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -88,7 +63,7 @@ export class FileManagerService {
     body.append('repository', '');
     body.append('file', fileUpadted);
     await this.http.put(
-      environment.uploadUrl + '/' + fileToken , body, httpOptions
+      environment.uploadUrl + '/' + fileToken, body, httpOptions
     ).subscribe(
       res => {
         console.log('File modified');
@@ -105,7 +80,7 @@ export class FileManagerService {
       })
     };
     await this.http.delete(
-      environment.uploadUrl + '/' + fileToken , httpOptions
+      environment.uploadUrl + '/' + fileToken, httpOptions
     ).subscribe(
       res => {
         console.log('File deleted');

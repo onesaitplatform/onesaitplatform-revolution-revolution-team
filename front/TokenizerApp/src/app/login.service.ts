@@ -47,10 +47,15 @@ export class LoginService {
         setTimeout(() => { this.router.navigate(['/core']);this.showOK = false;},2000);
         console.log('Correct login');
       }, err => {
-        environment.token = null;
+        environment.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmluY2lwYWwiOiJwcG96byIsImNsaWVudElkIjoib25lc2FpdHBsYXRmb3JtIiwidXNlcl9uYW1lIjoicHBvem8iLCJzY29wZSI6WyJvcGVuaWQiLCJhdXRob3JpemF0aW9uX2NvZGUiXSwibmFtZSI6InBwb3pvIiwiZXhwIjoxNTcwNDc0MTUxLCJncmFudFR5cGUiOiJwYXNzd29yZCIsInBhcmFtZXRlcnMiOnsiZ3JhbnRfdHlwZSI6InBhc3N3b3JkIiwidXNlcm5hbWUiOiJwcG96byJ9LCJhdXRob3JpdGllcyI6WyJST0xFX0RFVkVMT1BFUiJdLCJqdGkiOiI2MDFiZmEwZC1iMTQ5LTQxM2QtYTA2YS0wMWE3NGFiMTJiYmUiLCJjbGllbnRfaWQiOiJvbmVzYWl0cGxhdGZvcm0ifQ.u4bRFxjbqNnRcqJ0nN2EGAyr6kMmKsCIbX-cKqZ_vww';
+        environment.userName =  'ppozo';
+        sessionStorage.setItem("token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmluY2lwYWwiOiJwcG96byIsImNsaWVudElkIjoib25lc2FpdHBsYXRmb3JtIiwidXNlcl9uYW1lIjoicHBvem8iLCJzY29wZSI6WyJvcGVuaWQiLCJhdXRob3JpemF0aW9uX2NvZGUiXSwibmFtZSI6InBwb3pvIiwiZXhwIjoxNTcwNDc0MTUxLCJncmFudFR5cGUiOiJwYXNzd29yZCIsInBhcmFtZXRlcnMiOnsiZ3JhbnRfdHlwZSI6InBhc3N3b3JkIiwidXNlcm5hbWUiOiJwcG96byJ9LCJhdXRob3JpdGllcyI6WyJST0xFX0RFVkVMT1BFUiJdLCJqdGkiOiI2MDFiZmEwZC1iMTQ5LTQxM2QtYTA2YS0wMWE3NGFiMTJiYmUiLCJjbGllbnRfaWQiOiJvbmVzYWl0cGxhdGZvcm0ifQ.u4bRFxjbqNnRcqJ0nN2EGAyr6kMmKsCIbX-cKqZ_vww");
+        sessionStorage.setItem("userName",environment.userName);
+        sessionStorage.setItem("pg","0");
         console.log(err);
         this.showKO = true;
-        setTimeout(() => {   this.showKO = false; },10000);
+        setTimeout(() => { this.router.navigate(['/core']);this.showOK = false;},2000);
+       // setTimeout(() => {   this.showKO = false; },10000);
 
       }
     );

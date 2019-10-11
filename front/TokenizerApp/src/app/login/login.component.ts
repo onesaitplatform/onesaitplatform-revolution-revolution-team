@@ -1,10 +1,11 @@
-import { Component, Injectable, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { environment } from '../../environments/environment';
+import {Component, Injectable, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {environment} from '../../environments/environment';
 import 'rxjs-compat/add/operator/map';
-import { LoginService } from '../login.service';
-import { FileManagerService } from '../file-manager.service';
-import { NgbAlertConfig } from '@ng-bootstrap/ng-bootstrap';
+import {LoginService} from '../login.service';
+import {FileManagerService} from '../file-manager.service';
+import {NgbAlertConfig} from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -25,32 +26,26 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("userName");
-    sessionStorage.removeItem("pg");
-    sessionStorage.removeItem("nof");
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('userName');
+    sessionStorage.removeItem('pg');
+    sessionStorage.removeItem('nof');
     this.fileManagerService.fileUpload = false;
     this.fileManagerService.uploadFailed = false;
   }
 
   login() {
-
     environment.token = null;
     this.submitLogin = true;
     if (this.username && this.psw) {
       this.loginService.getToken(this.username, this.psw);
-      // setTimeout(() => {
-      //   this.fileManagerService.getFile(environment.dataFileID);
-      // }, 6000);
-
-      // environment.dataFile = this.fileManagerService.file;
     }
   }
+
   skipGuess() {
 
-    this.loginService.getToken("anonymous", "Anonymous2019!");
+    this.loginService.getToken('anonymous', 'Anonymous2019!');
   }
-
 
 
 }
